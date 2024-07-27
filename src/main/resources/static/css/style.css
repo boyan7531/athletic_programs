@@ -1,0 +1,419 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-image: url('/static/images/athletics.jpg');
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-bottom: 5rem;
+}
+
+/* Main container styling */
+main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading styling */
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Meals container styling */
+.meals-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Individual meal box styling */
+.meal {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    flex: 1 1 calc(33.333% - 40px); /* Adjust to fit 3 meals per row with gaps */
+    box-sizing: border-box;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.meal:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Meal title styling */
+.meal h2 {
+    font-size: 1.5em;
+    margin-top: 0;
+    color: #333;
+}
+
+/* Meal details styling */
+.meal p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.meal p:first-of-type {
+    margin-top: 10px;
+}
+
+/* Navigation bar styling */
+nav {
+    background-color: orange; /* Updated to orange */
+    backdrop-filter: blur(5px);
+    font-size: 1.4em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    box-shadow: 2px 2px 8px #5a6268;
+    overflow: hidden;
+    padding: 0.5em 1em;
+}
+
+nav .home {
+    flex: 1;
+}
+
+nav .links {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav .links li {
+    margin-right: 1em; /* Space between links */
+}
+
+nav .links a {
+    text-decoration: none;
+    color: #000; /* Black text for links */
+}
+
+nav .links a:hover {
+    text-shadow: none;
+    text-decoration: none;
+    color: #d1ddf1; /* Lighter color on hover */
+}
+
+/* Textarea styling */
+textarea {
+    resize: none;
+}
+
+/* Welcome section styling */
+.welcome {
+    position: relative;
+    border-radius: 12px;
+    margin-top: 8em;
+    color: #b5d8f1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    padding: 1em;
+    background-color: rgba(84, 91, 98, 0.1);
+    max-width: 1140px;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    box-shadow: 0 4px 16px black;
+    z-index: 1;
+}
+
+.welcome:hover {
+    box-shadow: 0 1px 5px black;
+    backdrop-filter: blur(35px);
+}
+
+/* Login form styling */
+.login {
+    transition: 0.1s ease-in;
+    margin-top: 6em;
+    background-color: rgba(84, 91, 98, 0.4);
+    width: 400px;
+}
+
+.login:hover span {
+    background-color: #5a6268;
+}
+
+.login:hover {
+    backdrop-filter: blur(2px);
+}
+
+/* Form and button styling */
+.add-offer-form, .login {
+    width: 400px;
+}
+
+button {
+    background-color: rgb(74, 106, 124);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+}
+
+button:hover {
+    background-color: rgb(39, 63, 77);
+}
+
+/* Text and container styling */
+.primary-text {
+    color: rgb(218, 218, 218);
+}
+
+/* Footer styling */
+footer {
+    position: static;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Image thumbnail styling */
+.img-thumb {
+    padding: .25rem;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: .25rem;
+    max-width: 100%;
+}
+
+/* Background blur styling */
+.bg-blur {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-weight: bold;
+    border: 3px solid #f1f1f1;
+    z-index: 2;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Sticky element styling */
+.mySticky {
+    position: sticky;
+    left: 0;
+}
+
+/* Image container styling */
+.image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    text-align: center;
+    padding-top: 50px;
+    box-sizing: border-box;
+}
+
+/* Preview image styling */
+.preview {
+    width: 35%;
+    display: block;
+    height: auto;
+    margin: 0.5em auto;
+    border-radius: 12px;
+    box-shadow: 2px 3px 5px #f5f1f1;
+    z-index: 10;
+}
+
+/* Flex container styling */
+#names, #authors {
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    padding-left: 5px;
+}
+
+#names {
+    flex: 0 0 45%;
+}
+
+#authors {
+    flex: 0 0 30%;
+}
+
+/* Text stroke styling */
+.text-stroke {
+    text-shadow: 0.07em 0 white, 0 0.07em white, -0.07em 0 white, 0 -0.07em white;
+}
+
+/* Link styling */
+a {
+    color: #000; /* Black text for links */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+a:hover {
+    text-shadow: none;
+    text-decoration: none;
+    color: #d1ddf1;
+}
+
+/* Footer text styling */
+.footer-text {
+    color: white;
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+/* Additional styling */
+.count, .user {
+    border-radius: 4px;
+    padding: 0.1em 0;
+}
+
+/* Utility classes */
+.w-15 {
+    width: 15%;
+}
+
+.bg-gray {
+    background-color: #e9ecef;
+}
+
+.bg-nav {
+    background-color: rgba(1, 141, 8, 0);
+}
+
+/* List item styling */
+ul li {
+    border-radius: 6px;
+    border: #5a6268 solid 2px;
+    margin: 0.1em;
+}
+
+ul li:hover {
+    background-color: #5a6268;
+    border: white solid 2px;
+}
+
+/* Info row styling */
+.info-row {
+    background-color: #343a40;
+    display: flex;
+    width: 100%;
+    height: 30px;
+    justify-content: start;
+    padding-left: 0.5em;
+    gap: 55px;
+}
+
+/* Painting styling */
+.my-paintings {
+    border-radius: 4px;
+    padding: 6px;
+    color: rgba(207, 230, 243, 0.78);
+    background-color: rgba(87, 86, 83, 0.92);
+}
+
+.most-rated {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1em;
+}
+
+.my-paintings-first-row {
+    padding: 0.5em;
+    color: whitesmoke;
+    display: flex;
+    align-content: flex-start;
+    align-items: center;
+    margin-bottom: 0.2em;
+    height: 60px;
+}
+
+.second-info {
+    padding: 0.6em 0.5em 0 0.5em;
+    background-color: #d3d1d1;
+    color: rgb(48, 49, 49);
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 30px;
+    justify-content: space-between;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+/* Button info styling */
+.buttons-info {
+    display: flex;
+    justify-content: end;
+    gap: 5px;
+    padding-right: 1em;
+    flex: 1 0 20%;
+}
+
+/* Add Meal Form Styling */
+#add-route-form {
+    background-color: rgba(84, 91, 98, 0.4); /* Slightly transparent background */
+    padding: 2em;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 600px; /* Adjusted width for larger forms */
+    margin: 2em auto; /* Center the form and add margin */
+}
+
+#add-route-form h3 {
+    color: #f1f1f1;
+    padding-left: 1em;
+    border-left: 4px solid #f1f1f1;
+    margin-bottom: 1.5em;
+}
+
+/* Form group styling */
+.form-group {
+    margin-bottom: 1em;
+}
+
+/* Form labels styling */
+.form-group label {
+    color: #f1f1f1;
+    font-weight: bold;
+}
+
+/* Form control styling */
+.form-control, .custom-select {
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    color: #333;
+}
+
+.form-control:focus, .custom-select:focus {
+    border-color: #5a6268;
+    box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.1);
+}
+
+/* Invalid feedback styling */
+.invalid-feedback {
+    font-size: 0.875em;
+    color: #dc3545;
+}
+
+/* Button block styling */
+.btn-block {
+    display: block;
+    width: 100%;
+}

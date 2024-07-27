@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Add Meal</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+</head>
+<body>
+<header>
+    <div th:replace="~{fragments/navigation}"></div>
+</header>
+
+<div class="row justify-content-center">
+    <form id="add-route-form" class="w-50 rounded text-white mt-5"
+          th:action="@{/add-meal}"
+          th:method="POST"
+          th:object="${mealAddBindingModel}"
+          enctype="multipart/form-data">
+
+        <h3 class="border-left border-light pl-2">Add a new meal</h3>
+
+
+        <div class="form-group">
+            <label for="name" class="col-form-label">Name</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    name="name"
+                    th:field="*{name}"
+                    th:errorclass="'is-invalid alert-danger'">
+        </div>
+
+        <div class="form-group">
+            <label for="inputCalories" class="col-form-label">Calories</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="inputCalories"
+                    name="calories"
+                    th:field="*{calories}"
+                    th:errorclass="'is-invalid alert-danger'">
+        </div>
+
+        <div class="form-group">
+            <label for="mealType" class="h4 mb-2">Meal Type</label>
+            <select
+                    class="browser-default custom-select"
+                    id="mealType"
+                    name="mealType"
+                    th:field="*{mealType}"
+                    th:errorclass="'is-invalid alert-danger'">
+                <option value="">Select type</option>
+                <option value="MAIN_DISH">Main Dish</option>
+                <option value="DESERT">Desert</option>
+                <option value="DRINK">Drink</option>
+            </select>
+            <small class="invalid-feedback">You must select a type!</small>
+        </div>
+
+        <div class="d-flex justify-content-center mt-4">
+            <button class="btn btn-primary btn-block" type="submit">Add Meal</button>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>
