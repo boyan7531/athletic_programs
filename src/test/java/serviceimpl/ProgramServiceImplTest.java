@@ -1,9 +1,9 @@
-package bg.softuni.athleticprogramapplication.service.impl;
+package serviceimpl;
 
 import bg.softuni.athleticprogramapplication.entities.Program;
 import bg.softuni.athleticprogramapplication.entities.ProgramGoal;
 import bg.softuni.athleticprogramapplication.repositories.ProgramRepository;
-import bg.softuni.athleticprogramapplication.service.ProgramService;
+import bg.softuni.athleticprogramapplication.service.impl.ProgramServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -30,87 +30,82 @@ class ProgramServiceImplTest {
     }
 
     @Test
-    void testFindAll() {
-        Program program1 = new Program();
-        program1.setId(1L);
-        Program program2 = new Program();
-        program2.setId(2L);
-        when(programRepository.findAll()).thenReturn(List.of(program1, program2));
+    void findAll_ShouldReturnAllPrograms() {
+        List<Program> expectedPrograms = List.of(new Program(), new Program());
+        when(programRepository.findAll()).thenReturn(expectedPrograms);
 
-        List<Program> programs = programService.findAll();
+        List<Program> actualPrograms = programService.findAll();
 
-        assertNotNull(programs);
-        assertEquals(2, programs.size());
+        assertEquals(expectedPrograms, actualPrograms);
         verify(programRepository, times(1)).findAll();
     }
 
     @Test
-    void testGetProgramDetailsById() {
-        Program program = new Program();
-        program.setId(1L);
-        when(programRepository.findById(1L)).thenReturn(Optional.of(program));
+    void getProgramDetailsById_ShouldReturnProgram_WhenIdExists() {
+        Long programId = 1L;
+        Program expectedProgram = new Program();
+        when(programRepository.findById(programId)).thenReturn(Optional.of(expectedProgram));
 
-        Program foundProgram = programService.getProgramDetailsById(1L);
+        Program actualProgram = programService.getProgramDetailsById(programId);
 
-        assertNotNull(foundProgram);
-        assertEquals(1L, foundProgram.getId());
-        verify(programRepository, times(1)).findById(1L);
+        assertEquals(expectedProgram, actualProgram);
+        verify(programRepository, times(1)).findById(programId);
     }
 
     @Test
-    void testGetProgramDetailsByIdNotFound() {
-        when(programRepository.findById(1L)).thenReturn(Optional.empty());
+    void getProgramDetailsById_ShouldReturnNull_WhenIdDoesNotExist() {
+        Long programId = 1L;
+        when(programRepository.findById(programId)).thenReturn(Optional.empty());
 
-        Program foundProgram = programService.getProgramDetailsById(1L);
+        Program actualProgram = programService.getProgramDetailsById(programId);
 
-        assertNull(foundProgram);
-        verify(programRepository, times(1)).findById(1L);
+        assertNull(actualProgram);
+        verify(programRepository, times(1)).findById(programId);
     }
 
     @Test
-    void testFindByProgramGoal() {
-        Program program = new Program();
-        program.setId(1L);
-        program.setProgramGoal(ProgramGoal.WEIGHT_LOSS);
-        when(programRepository.findByProgramGoal(ProgramGoal.WEIGHT_LOSS)).thenReturn(Optional.of(program));
+    void findByProgramGoal_ShouldReturnProgram_WhenGoalExists() {
+        ProgramGoal goal = ProgramGoal.LOSE_WEIGHT;
+        Program expectedProgram = new Program();
+        when(programRepository.findByProgramGoal(goal)).thenReturn(Optional.of(expectedProgram));
 
-        Program foundProgram = programService.findByProgramGoal("WEIGHT_LOSS");
+        Program actualProgram = programService.findByProgramGoal("LOSE_WEIGHT");
 
-        assertNotNull(foundProgram);
-        assertEquals(ProgramGoal.WEIGHT_LOSS, foundProgram.getProgramGoal());
-        verify(programRepository, times(1)).findByProgramGoal(ProgramGoal.WEIGHT_LOSS);
+        assertEquals(expectedProgram, actualProgram);
+        verify(programRepository, times(1)).findByProgramGoal(goal);
     }
 
     @Test
-    void testFindByProgramGoalNotFound() {
-        when(programRepository.findByProgramGoal(ProgramGoal.WEIGHT_LOSS)).thenReturn(Optional.empty());
+    void findByProgramGoal_ShouldReturnNull_WhenGoalDoesNotExist() {
+        ProgramGoal goal = ProgramGoal.LOSE_WEIGHT;
+        when(programRepository.findByProgramGoal(goal)).thenReturn(Optional.empty());
 
-        Program foundProgram = programService.findByProgramGoal("WEIGHT_LOSS");
+        Program actualProgram = programService.findByProgramGoal("LOSE_WEIGHT");
 
-        assertNull(foundProgram);
-        verify(programRepository, times(1)).findByProgramGoal(ProgramGoal.WEIGHT_LOSS);
+        assertNull(actualProgram);
+        verify(programRepository, times(1)).findByProgramGoal(goal);
     }
 
     @Test
-    void testFindById() {
-        Program program = new Program();
-        program.setId(1L);
-        when(programRepository.findById(1L)).thenReturn(Optional.of(program));
+    void findById_ShouldReturnProgram_WhenIdExists() {
+        Long programId = 1L;
+        Program expectedProgram = new Program();
+        when(programRepository.findById(programId)).thenReturn(Optional.of(expectedProgram));
 
-        Program foundProgram = programService.findById(1L);
+        Program actualProgram = programService.findById(programId);
 
-        assertNotNull(foundProgram);
-        assertEquals(1L, foundProgram.getId());
-        verify(programRepository, times(1)).findById(1L);
+        assertEquals(expectedProgram, actualProgram);
+        verify(programRepository, times(1)).findById(programId);
     }
 
     @Test
-    void testFindByIdNotFound() {
-        when(programRepository.findById(1L)).thenReturn(Optional.empty());
+    void findById_ShouldReturnNull_WhenIdDoesNotExist() {
+        Long programId = 1L;
+        when(programRepository.findById(programId)).thenReturn(Optional.empty());
 
-        Program foundProgram = programService.findById(1L);
+        Program actualProgram = programService.findById(programId);
 
-        assertNull(foundProgram);
-        verify(programRepository, times(1)).findById(1L);
+        assertNull(actualProgram);
+        verify(programRepository, times(1)).findById(programId);
     }
 }

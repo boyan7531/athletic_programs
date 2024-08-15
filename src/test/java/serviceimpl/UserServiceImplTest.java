@@ -8,20 +8,19 @@ import bg.softuni.athleticprogramapplication.repositories.UserRepository;
 import bg.softuni.athleticprogramapplication.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
-public class UserServiceImplTest {
+class UserServiceImplTest {
 
     @Mock
     private UserRepository userRepository;
@@ -38,102 +37,177 @@ public class UserServiceImplTest {
     @InjectMocks
     private UserServiceImpl userService;
 
-    private User user;
-    private UserLoginBindingModel userLoginBindingModel;
-    private UserRegisterBindingModel userRegisterBindingModel;
-
     @BeforeEach
-    public void setUp() {
-        user = new User();
-        user.setId(1L);
-        user.setUsername("testuser");
-        user.setPassword("encodedpassword");
-
-        userLoginBindingModel = new UserLoginBindingModel();
-        userLoginBindingModel.setUsername("testuser");
-        userLoginBindingModel.setPassword("password");
-
-        userRegisterBindingModel = new UserRegisterBindingModel();
-        userRegisterBindingModel.setUsername("newuser");
-        userRegisterBindingModel.setPassword("newpassword");
-        userRegisterBindingModel.setEmail("newuser@example.com");
-        userRegisterBindingModel.setFullName("New User");
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testIsUniqueUsername() {
-        when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(user));
+    void isUniqueUsername_ShouldReturnTrue_WhenUsernameIsUnique() {
+        // Arrange
+        when(userRepository.findByUsername("uniqueUsername")).thenReturn(Optional.empty());
 
-        boolean isUnique = userService.isUniqueUsername("testuser");
+        // Act
+        boolean result = userService.isUniqueUsername("uniqueUsername");
 
-        assertFalse(isUnique);
+        // Assert
+        assertTrue(result);
     }
 
     @Test
-    public void testIsUniqueEmail() {
-        when(userRepository.findByEmail("testuser@example.com")).thenReturn(Optional.of(user));
+    void isUniqueUsername_ShouldReturnFalse_WhenUsernameIsNotUnique() {
+        // Arrange
+        User existingUser = new User();
+        when(userRepository.findByUsername("existingUsername")).thenReturn(Optional.of(existingUser));
 
-        boolean isUnique = userService.isUniqueEmail("testuser@example.com");
+        // Act
+        boolean result = userService.isUniqueUsername("existingUsername");
 
-        assertFalse(isUnique);
+        // Assert
+        assertFalse(result);
     }
 
     @Test
-    public void testLoginSuccess() {
-        when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(user));
-        when(passwordEncoder.matches("password", user.getPassword())).thenReturn(true);
+    void login_ShouldReturnTrue_WhenCredentialsAreValid() {
+        // Arrange
+        User user = new User();
+        user.setUsername("validUser");
+        user.setPassword("encodedPassword");
 
-        boolean loginResult = userService.login(userLoginBindingModel);
+        UserLoginBindingModel loginModel = new UserLoginBindingModel();
+        loginModel.setUsername("validUser");
+        loginModel.setPassword("password");
 
-        assertTrue(loginResult);
+        when(userRepository.findByUsername("validUser")).thenReturn(Optional.of(user));
+        when(passwordEncoder.matches("password", "encodedPassword")).thenReturn(true);
+
+        // Act
+        boolean result = userService.login(loginModel);
+
+        // Assert
+        assertTrue(result);
         verify(userSession).login(user.getId(), user.getUsername());
+        verify(userSession).setCurrentUser(user);
         verify(userSession).setLogged(true);
     }
 
     @Test
-    public void testLoginFailure() {
-        when(userRepository.findByUsername("testuser")).thenReturn(Optional.empty());
+    void login_ShouldReturnFalse_WhenUserNotFound() {
+        // Arrange
+        UserLoginBindingModel loginModel = new UserLoginBindingModel();
+        loginModel.setUsername("invalidUser");
 
-        boolean loginResult = userService.login(userLoginBindingModel);
+        when(userRepository.findByUsername("invalidUser")).thenReturn(Optional.empty());
 
-        assertFalse(loginResult);
-        verify(userSession, never()).login(anyLong(), anyString());
+        // Act
+        boolean result = userService.login(loginModel);
+
+        // Assert
+        assertFalse(result);
+        verify(userSession, never()).login(any(), any());
     }
 
     @Test
-    public void testGetUserById() {
-        when(userRepository.getById(1L)).thenReturn(user);
+    void register_ShouldSaveNewUser() {
+        // Arrange
+        UserRegisterBindingModel registerModel = new UserRegisterBindingModel();
+        registerModel.setUsername("newUser");
+        registerModel.setPassword("password");
+        registerModel.setEmail("user@example.com");
+        registerModel.setFullName("New User");
 
-        User foundUser = userService.getUserById(1L);
+        User user = new User();
+        user.setUsername("newUser");
+        user.setPassword("encodedPassword");
+        user.setEmail("user@example.com");
+        user.setFullName("New User");
 
-        assertEquals("testuser", foundUser.getUsername());
-    }
+        when(passwordEncoder.encode("password")).thenReturn("encodedPassword");
 
-    @Test
-    public void testGetUserWithProgram() {
-        when(userRepository.findUserWithProgramById(1L)).thenReturn(user);
+        // Act
+        userService.register(registerModel);
 
-        User foundUser = userService.getUserWithProgram(1L);
-
-        assertEquals("testuser", foundUser.getUsername());
-    }
-
-    @Test
-    public void testRegister() {
-        when(passwordEncoder.encode("newpassword")).thenReturn("encodednewpassword");
-
-        userService.register(userRegisterBindingModel);
-
+        // Assert
         verify(userRepository).saveAndFlush(any(User.class));
     }
 
     @Test
-    public void testSave() {
-        when(userRepository.save(user)).thenReturn(user);
+    void changeUsername_ShouldReturnFalse_WhenNewUsernameIsSame() {
+        // Arrange
+        User user = new User();
+        user.setUsername("sameUsername");
 
-        User savedUser = userService.save(user);
+        // Act
+        boolean result = userService.changeUsername(user, "sameUsername");
 
-        assertEquals("testuser", savedUser.getUsername());
+        // Assert
+        assertFalse(result);
+        verify(userRepository, never()).save(user);
+    }
+
+    @Test
+    void changeUsername_ShouldReturnFalse_WhenUsernameAlreadyExists() {
+        // Arrange
+        User user = new User();
+        user.setUsername("currentUsername");
+
+        User existingUser = new User();
+        existingUser.setUsername("newUsername");
+
+        when(userRepository.findByUsername("newUsername")).thenReturn(Optional.of(existingUser));
+
+        // Act
+        boolean result = userService.changeUsername(user, "newUsername");
+
+        // Assert
+        assertFalse(result);
+        verify(userRepository, never()).save(user);
+    }
+
+    @Test
+    void changeUsername_ShouldReturnTrue_WhenUsernameIsChanged() {
+        // Arrange
+        User user = new User();
+        user.setUsername("currentUsername");
+
+        when(userRepository.findByUsername("newUsername")).thenReturn(Optional.empty());
+
+        // Act
+        boolean result = userService.changeUsername(user, "newUsername");
+
+        // Assert
+        assertTrue(result);
         verify(userRepository).save(user);
+        assertEquals("newUsername", user.getUsername());
+    }
+
+    @Test
+    void validatePassword_ShouldReturnTrue_WhenPasswordMatches() {
+        // Arrange
+        User user = new User();
+        user.setPassword("encodedPassword");
+
+        when(passwordEncoder.matches("password", "encodedPassword")).thenReturn(true);
+
+        // Act
+        boolean result = userService.validatePassword(user, "password");
+
+        // Assert
+        assertTrue(result);
+    }
+
+    @Test
+    void validatePassword_ShouldReturnFalse_WhenPasswordDoesNotMatch() {
+        // Arrange
+        User user = new User();
+        user.setPassword("encodedPassword");
+
+        when(passwordEncoder.matches("wrongPassword", "encodedPassword")).thenReturn(false);
+
+        // Act
+        boolean result = userService.validatePassword(user, "wrongPassword");
+
+        // Assert
+        assertFalse(result);
     }
 }

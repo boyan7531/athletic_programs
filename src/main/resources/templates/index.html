@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bg" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Vital Stride</title>
+    <title th:text="#{index.title}">Добре дошли във Vital Stride</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 
@@ -28,7 +28,6 @@
             background-position: center;
         }
 
-        /* Hero Section */
         .hero-section {
             display: flex;
             flex-direction: column;
@@ -38,7 +37,7 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.6);
             text-align: center;
-            padding-top: 70px; /* Prevent content from being hidden behind navbar */
+            padding-top: 70px;
         }
 
         .hero-section .box {
@@ -75,7 +74,6 @@
             background-color: #165f9e;
         }
 
-        /* Fade-in sections */
         .fade-in-section {
             opacity: 0;
             transform: translateY(20px) scale(0.95);
@@ -119,31 +117,28 @@
 </head>
 <body>
 
-<!-- Include navigation bar from Thymeleaf fragment -->
 <div th:replace="~{fragments/navigation}"></div>
 
 <div class="hero-section">
     <div class="box">
-        <h1>Welcome to Vital Stride</h1>
-        <p>Your journey to a healthier lifestyle starts here.</p>
-        <p>Join our community and discover the best programs tailored just for you.</p>
-        <a href="/programs" class="btn">View Programs</a>
+        <h1 th:text="#{index.welcome}">Добре дошли във Vital Stride</h1>
+        <p th:text="#{index.journey_start}">Вашето пътешествие към по-здравословен начин на живот започва тук.</p>
+        <p th:text="#{index.join_community}">Присъединете се към нашата общност и открийте най-добрите програми, създадени специално за вас.</p>
+        <a href="/programs" class="btn" th:text="#{index.view_programs}">Вижте програмите</a>
     </div>
 </div>
 
-<!-- Sections to fade in on scroll -->
 <div class="fade-in-section">
-    <h2>Explore Our Meal Plans</h2>
-    <p>Discover delicious, protein-packed meals that fit your fitness goals.</p>
-    <a href="/meals" class="btn">View Meals</a>
+    <h2 th:text="#{index.meal_plans}">Разгледайте нашите хранителни планове</h2>
+    <p th:text="#{index.meal_plans_intro}">Открийте вкусни, богати на протеини ястия, които отговарят на вашите фитнес цели.</p>
+    <a href="/meals" class="btn" th:text="#{index.view_meals}">Вижте ястията</a>
 </div>
 
 <div class="fade-in-section">
-    <h2>Track Your Progress</h2>
-    <p>Stay on top of your goals with our detailed progress tracking tools.</p>
-    <a href="/progress" class="btn">Track Progress</a>
+    <h2 th:text="#{index.track_progress}">Проследете своя прогрес</h2>
+    <p th:text="#{index.track_progress_intro}">Бъдете в крак с вашите цели с нашите детайлни инструменти за проследяване на прогреса.</p>
+    <a href="/progress" class="btn" th:text="#{index.track_progress_button}">Проследете прогреса</a>
 </div>
-
 
 <script>
     function handleScroll() {
@@ -161,7 +156,7 @@
     }
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Trigger the function initially in case sections are already in view
+    handleScroll();
 </script>
 
 <div th:replace="~{fragments/footer}"></div>

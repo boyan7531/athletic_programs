@@ -2,7 +2,7 @@ package bg.softuni.athleticprogramapplication.controller;
 
 import bg.softuni.athleticprogramapplication.config.UserSession;
 import bg.softuni.athleticprogramapplication.entities.Run;
-import bg.softuni.athleticprogramapplication.entities.dto.binding.AddRun;
+import bg.softuni.athleticprogramapplication.entities.dto.binding.AddRunBindingModel;
 import bg.softuni.athleticprogramapplication.repositories.RunRepository;
 import bg.softuni.athleticprogramapplication.service.RunService;
 import org.springframework.stereotype.Controller;
@@ -31,12 +31,12 @@ public class RunController {
         return "add-run";
     }
     @ModelAttribute("addRun")
-    public AddRun addRunDTO(){
-        return new AddRun();
+    public AddRunBindingModel addRunDTO(){
+        return new AddRunBindingModel();
     }
 
     @PostMapping("/add-run")
-    public String doAddRun(AddRun addRun,
+    public String doAddRun(AddRunBindingModel addRun,
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes){
         if(bindingResult.hasErrors()){
@@ -87,14 +87,14 @@ public class RunController {
         Long userId = userSession.getId();
         Run run = runService.getRunByIdAndUserId(id, userId);
         if (run != null) {
-            AddRun addRun = runService.convertToAddRunDTO(run);
+            AddRunBindingModel addRun = runService.convertToAddRunDTO(run);
             model.addAttribute("addRun", addRun);
             return "edit-run";
         }
         return "redirect:/users/run";
 }
     @PostMapping("/runs/edit/{id}")
-    public String editRun(@PathVariable("id") Long id, Model model, @ModelAttribute AddRun addRun){
+    public String editRun(@PathVariable("id") Long id, Model model, @ModelAttribute AddRunBindingModel addRun){
         Long userId = userSession.getId();
         runService.editRun(id,addRun, userId);
         return "redirect:/users/run";

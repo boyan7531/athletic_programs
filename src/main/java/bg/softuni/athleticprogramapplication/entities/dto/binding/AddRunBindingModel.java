@@ -1,6 +1,6 @@
 package bg.softuni.athleticprogramapplication.entities.dto.binding;
 
-public class AddRun {
+public class AddRunBindingModel {
     private String id;
     private String title;
     private Integer hours;
@@ -10,7 +10,7 @@ public class AddRun {
     private Integer meters;
 
 
-    public AddRun() {
+    public AddRunBindingModel() {
     }
 
     public String getId() {

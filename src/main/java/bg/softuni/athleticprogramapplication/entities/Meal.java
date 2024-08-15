@@ -1,7 +1,5 @@
 package bg.softuni.athleticprogramapplication.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,65 +10,54 @@ public class Meal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+
     @Column(nullable = false)
     private String title;
+    @Column(nullable = false,columnDefinition = "TEXT")
+    private String ingredients;
+    @Column(nullable = false,columnDefinition = "TEXT")
+    private String recipe;
+
+    @Column(nullable = false, name = "title_bg")
+    private String titleBg;
+    @Column(nullable = false, columnDefinition = "TEXT", name = "ingredients_bg")
+    private String ingredientsBg;
+    @Column(nullable = false, columnDefinition = "TEXT",name = "recipe_bg")
+    private String recipeBg;
+
     @Column(nullable = false)
     private Integer calories;
+
     @Column(nullable = false)
     private String protein;
 
-    @Column(nullable = false, length = 5000)
-    private String ingredients;
-    @Column(nullable = false, length = 5000)
-    private String recipe;
-    //    @Enumerated(EnumType.STRING)
-//    @Column(name = "meal_type",nullable = false)
-//    private MealType mealType;
     @ManyToMany(mappedBy = "favoriteMeals")
-    @JsonIgnore
     private Set<User> users;
+
     @Column
     private String imageUrl;
-
 
     public Meal() {
         this.users = new HashSet<>();
     }
 
-    public Meal(String title, int calories, int protein, String ingredients, String recipe, String imageUrl) {
-        this.title = title;
+
+    public Meal(String titleEn, String titleBg, int calories, int protein,
+                String ingredientsEn, String ingredientsBg,
+                String recipeEn, String recipeBg, String imageUrl) {
+        this.title = titleEn;
+        this.titleBg = titleBg;
         this.calories = calories;
         this.protein = String.valueOf(protein);
-        this.ingredients = ingredients;
-        this.recipe = recipe;
+        this.ingredients = ingredientsEn;
+        this.ingredientsBg = ingredientsBg;
+        this.recipe = recipeEn;
+        this.recipeBg = recipeBg;
         this.imageUrl = imageUrl;
     }
 
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> usersWhoFavorited) {
-        this.users = usersWhoFavorited;
-    }
-
-    public String getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(String ingredients) {
-        this.ingredients = ingredients;
-    }
-
-    public String getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(String recipe) {
-        this.recipe = recipe;
-    }
-
+    // Getters and Setters for all fields
     public Long getId() {
         return id;
     }
@@ -83,8 +70,48 @@ public class Meal {
         return title;
     }
 
-    public void setTitle(String name) {
-        this.title = title;
+    public void setTitle(String titleEn) {
+        this.title = titleEn;
+    }
+
+    public String getTitleBg() {
+        return titleBg;
+    }
+
+    public void setTitleBg(String titleBg) {
+        this.titleBg = titleBg;
+    }
+
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(String ingredientsEn) {
+        this.ingredients = ingredientsEn;
+    }
+
+    public String getIngredientsBg() {
+        return ingredientsBg;
+    }
+
+    public void setIngredientsBg(String ingredientsBg) {
+        this.ingredientsBg = ingredientsBg;
+    }
+
+    public String getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(String recipeEn) {
+        this.recipe = recipeEn;
+    }
+
+    public String getRecipeBg() {
+        return recipeBg;
+    }
+
+    public void setRecipeBg(String recipeBg) {
+        this.recipeBg = recipeBg;
     }
 
     public Integer getCalories() {
@@ -111,12 +138,12 @@ public class Meal {
         this.imageUrl = imageUrl;
     }
 
-    //    public MealType getMealType() {
-//        return mealType;
-//    }
-//
-//    public void setMealType(MealType mealType) {
-//        this.mealType = mealType;
-//    }
-//}
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> usersWhoFavorited) {
+        this.users = usersWhoFavorited;
+    }
 }
+

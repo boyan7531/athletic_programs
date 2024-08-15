@@ -178,22 +178,25 @@
 
 <div class="content-wrapper">
     <div class="title-container">
-        <h1>Run Tracker</h1>
+        <h1 th:text="#{run.tracker.title}">Тракер за Бягане</h1>
     </div>
 
     <div class="button-container">
-        <a href="/add-run" class="btn">Add Run</a>
+        <a href="/add-run" class="btn" th:text="#{button.add.run}">Добави Бягане</a>
     </div>
 
     <div class="run-list">
         <div class="run-box" th:each="run : ${runs}">
-            <p><strong>Distance:</strong> <span th:text="${run.kilometers} + ' km ' + ${run.meters} + ' m'">5 km 200 m</span></p>
-            <p><strong>Time:</strong> <span th:text="${run.hours} + ' h ' + ${run.minutes} + ' m ' + ${run.seconds} + ' s'">0 h 30 m 45 s</span></p>
+            <p><strong th:text="#{run.distance.label}">Разстояние:</strong>
+                <span th:text="${run.kilometers} + ' км ' + ${run.meters} + ' м'">5 км 200 м</span>
+            </p>
+            <p><strong th:text="#{run.time.label}">Време:</strong>
+                <span th:text="${run.hours} + ' ч ' + ${run.minutes} + ' м ' + ${run.seconds} + ' с'">0 ч 30 м 45 с</span>
+            </p>
             <div class="action-buttons">
-                <a th:href="@{'/runs/edit/' + ${run.id}}" class="edit">Edit</a>
+                <a th:href="@{'/runs/edit/' + ${run.id}}" class="edit" th:text="#{button.edit}">Редактирай</a>
                 <form th:action="@{'/runs/delete/' + ${run.id}}" method="post">
-<!--                    <input type="hidden" name="_method" value="delete">-->
-                    <button type="submit" class="delete-button">Delete</button>
+                    <button type="submit" class="delete-button" th:text="#{button.delete}">Изтрий</button>
                 </form>
             </div>
         </div>

@@ -21,6 +21,12 @@ public interface UserService {
 
     void save(User user);
 
+    Optional<User> findById(Long userId);
+
+    boolean changeUsername(User user, String newUsername);
+
+
+
     /*  Optional<User> save(Optional<User> currentUser);*/
 
 }

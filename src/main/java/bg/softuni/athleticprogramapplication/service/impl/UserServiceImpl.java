@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -41,23 +42,23 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public boolean login(UserLoginBindingModel userLoginBindingModel) {
-        // Find user by username
+
         Optional<User> userOptional = userRepository.findByUsername(userLoginBindingModel.getUsername());
 
-        // Check if user is present
+
         if (userOptional.isEmpty()) {
-            return false; // User not found
+            return false;
         }
 
         User user = userOptional.get();
 
-        // Check if password matches
+
         boolean matches = passwordEncoder.matches(userLoginBindingModel.getPassword(), user.getPassword());
         if (!matches) {
-            return false; // Password mismatch
+            return false;
         }
 
-        // Log in user (assuming userSession is a service to handle session state)
+
         userSession.login(user.getId(), user.getUsername());
         userSession.setCurrentUser(user);
         userSession.setLogged(true);
@@ -92,6 +93,34 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user) {
         this.userRepository.save(user);
+    }
+
+    @Override
+    public Optional<User> findById(Long userId) {
+        return this.userRepository.findById(userId);
+    }
+
+    public boolean changeUsername(User user, String newUsername) {
+
+        if (user.getUsername().equals(newUsername)) {
+            return false; // Username is the same, no change needed
+        }
+
+
+        Optional<User> existingUser = userRepository.findByUsername(newUsername);
+        if (existingUser.isPresent()) {
+            return false;
+        }
+
+
+        user.setUsername(newUsername);
+        userRepository.save(user);
+        return true;
+    }
+
+
+    public boolean validatePassword(User user, String password) {
+        return passwordEncoder.matches(password, user.getPassword());
     }
 
 //    @Override

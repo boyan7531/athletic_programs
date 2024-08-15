@@ -54,7 +54,7 @@ public class MealServiceImpl implements MealService {
     @Override
     @Transactional(readOnly = true)
     public Set<Meal> getFavoriteMeals(Long userId) {
-        // Instead of calling an external service, get meals directly from the main project repository
+
         Optional<User> userById = userRepository.findById(userId);
         if (userById.isPresent()) {
             User user = userById.get();
@@ -70,8 +70,11 @@ public class MealServiceImpl implements MealService {
         if (userById.isPresent() && mealById.isPresent()) {
             User user = userById.get();
             Meal meal = mealById.get();
-            user.getFavoriteMeals().remove(meal);
+            Set<Meal> favoriteMeals = new HashSet<>(user.getFavoriteMeals());
+            boolean removed = favoriteMeals.remove(meal);
+            user.setFavoriteMeals(favoriteMeals);
             userRepository.save(user);
+            return removed;
         }
         return false;
     }

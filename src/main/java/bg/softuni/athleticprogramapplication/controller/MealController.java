@@ -5,7 +5,6 @@ import bg.softuni.athleticprogramapplication.entities.Meal;
 import bg.softuni.athleticprogramapplication.entities.dto.binding.MealAddBindingModel;
 import bg.softuni.athleticprogramapplication.repositories.MealRepository;
 import bg.softuni.athleticprogramapplication.service.MealService;
-import bg.softuni.athleticprogramapplication.service.impl.MealServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,7 +38,7 @@ public class MealController {
         return new MealAddBindingModel();
     }
 
-    @GetMapping("/add-meal")
+   /* @GetMapping("/add-meal")
     public String addMeal() {
         return "add-meal";
     }
@@ -61,7 +60,7 @@ public class MealController {
             return "redirect:/add-meal";
         }
         return "redirect:/meals";
-    }
+    }*/
 
     @GetMapping("/meals")
     public String getAllMeals(Model model) {
@@ -70,8 +69,10 @@ public class MealController {
         List<Long> favoriteMeals = mealService.getFavoriteMealsIds(userId);
         model.addAttribute("meals", meals);
         model.addAttribute("favoriteMealIds", favoriteMeals);
-        return "meals";
+        return "mealsList";
+
     }
+
 
     @GetMapping("/meals/{id}")
     public String getMealInfo(@PathVariable Long id, Model model) {

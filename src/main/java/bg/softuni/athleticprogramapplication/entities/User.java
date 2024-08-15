@@ -40,16 +40,9 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "meal_id")
     )
-    @JsonIgnore
     private Set<Meal> favoriteMeals;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles;
+
 
 
 
@@ -58,7 +51,6 @@ public class User {
 
 
     public User() {
-        this.roles = new HashSet<>();
         this.runs = new HashSet<>();
         this.favoriteMeals = new HashSet<>();
         this.progressTrackers = new ArrayList<>();
@@ -138,11 +130,4 @@ public class User {
         this.favoriteMeals = favoriteMeals;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
 }

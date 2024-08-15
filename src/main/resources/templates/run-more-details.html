@@ -15,7 +15,6 @@
             font-family: "Poppins", sans-serif;
         }
 
-
         html, body {
             margin: 0;
             padding: 0;
@@ -54,7 +53,6 @@
             flex-direction: column;
             align-items: center;
             overflow: auto;
-
         }
 
         main {
@@ -103,6 +101,9 @@
             display: flex;
             justify-content: center;
             margin-top: 20px;
+            position: relative;
+            flex-direction: column;
+            align-items: center;
         }
 
         .program-button {
@@ -128,17 +129,12 @@
         }
 
         .error-message {
-            color: white;
-            font-size: 12px;
-            padding-left: 10px;
-            height: 12px;
-            line-height: 14px;
-            position: absolute;
-            top: 100%; /* Positioning it right below the input field */
-            left: 0;
-            width: 100%;
+            color: red; /* Make the error message red */
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: center;
         }
-        </style>
+    </style>
 </head>
 <body class="program-page">
 
@@ -191,12 +187,13 @@
                 <h2 th:text="#{run_more.join_us.header}">Join Us Today</h2>
                 <div class="program-wrapper">
                     <p th:text="#{run_more.join_us.intro}">Ready to start your fitness journey? Click the button below to choose this program and take the first step towards a healthier you.</p>
-                    <div class="choose-button-container">
-                        <form th:action="@{/choose-program}" method="post">
+                    <div class="button-container">
+                        <form id="choose-program-form" method="post">
                             <input type="hidden" id="programId" name="programId" th:value="${programId}">
-                            <button type="submit" class="program-button" th:text="#{run_more.button.choose}" th:disabled="${@userSession.getCurrentUser() != null and @userSession.getCurrentUser().getProgram() != null}">Choose Program</button>
+                            <button type="submit" class="program-button" th:text="#{run_more.button.choose}">Choose Program</button>
                         </form>
-                        <div class="error-message" th:if="${errorMessage != null}" th:text="${errorMessage}"></div>
+                        <div id="error-message" class="error-message" style="display: none;" th:text="#{run_more.error.already_chosen}"></div>
+
                     </div>
                 </div>
             </div>
@@ -205,6 +202,46 @@
 </div>
 
 <div th:replace="~{fragments/footer}"></div>
+
+<script>
+    document.getElementById('choose-program-form').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const form = event.target;
+        const formData = new FormData(form);
+        const programId = formData.get('programId');
+
+
+        const errorAlreadyChosen = /*[[#{run_more.error.already_chosen}]]*/ 'You have already chosen a program.';
+
+        fetch('/api/programs/choose', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ programId: programId }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                const errorMessageDiv = document.getElementById('error-message');
+                if (data.alreadyChosen) {
+                    errorMessageDiv.textContent = errorAlreadyChosen;
+                    errorMessageDiv.style.display = 'block';
+                } else if (data.redirect) {
+                    window.location.href = data.redirect;
+                } else {
+                    errorMessageDiv.textContent = '';
+                    errorMessageDiv.style.display = 'none';
+                    window.location.href = '/my-program';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+</script>
+
+
 
 </body>
 </html>

@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -35,36 +37,33 @@ public class ProgramController {
         return "programs";
     }
 
-    @PostMapping("/choose-program")
-    public String chooseProgram(@RequestParam("programId") Long programId, Model model) {
-        if (!userSession.isLoggedIn()) {
-            return "redirect:/users/login";
-        }
+//    @PostMapping("/choose-program")
+//    @ResponseBody
+//    public Map<String, Object> chooseProgram(@RequestParam("programId") Long programId) {
+//        Map<String, Object> response = new HashMap<>();
+//
+//        if (!userSession.isLoggedIn()) {
+//            response.put("redirect", "/users/login");
+//            return response;
+//        }
+//
+//        Long userId = userSession.getId();
+//        Optional<User> userById = userRepository.findById(userId);
+//        Program program = programService.getProgramDetailsById(programId);
+//
+//        if (userById.isPresent() && userById.get().getProgram() != null) {
+//            response.put("alreadyChosen", true);
+//        } else if (userById.isPresent() && program != null) {
+//            User user = userById.get();
+//            user.setProgram(program);
+//            userService.save(user);
+//            userSession.setCurrentUser(user);
+//            response.put("alreadyChosen", false);
+//        }
+//
+//        return response;
+//    }
 
-
-        Long userId = userSession.getId();
-        Optional<User> userById = userRepository.findById(userId);
-        Program program = programService.getProgramDetailsById(programId);
-
-
-        if (userById.isPresent() && userById.get().getProgram() != null) {
-            model.addAttribute("alreadyChosen", true);
-            model.addAttribute("programId", programId);
-            return "redirect:/my-program";
-
-        }
-        if (userById.isPresent() && program != null) {
-                User user = userById.get();
-                user.setProgram(program);
-                userService.save(user);
-                userSession.setCurrentUser(user);
-                return "redirect:/my-program";
-
-        }
-
-            return "redirect:/programs";
-
-    }
     @PostMapping("/remove-program")
     public String removeProgram() {
         if (!userSession.isLoggedIn()) {
@@ -84,11 +83,9 @@ public class ProgramController {
 
         return "redirect:/error";
     }
+
     @GetMapping("/programs/lose-weight")
     public String loseWeight(Model model) {
-
-
-
         Program program = programService.findByProgramGoal(ProgramGoal.LOSE_WEIGHT.toString());
         if (program == null) {
             return "redirect:/error";

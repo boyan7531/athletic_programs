@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bg" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -75,10 +75,8 @@
             text-align: center;
             padding-top: 20px;
             border-top: 1px solid #444;
-            /*margin-top: 20px;*/
             background: black;
             width: 100%;
-            /*position: fixed;*/
             bottom: 0;
         }
 
@@ -102,24 +100,24 @@
 <!-- Footer -->
 <footer class="footer">
     <div class="footer-column">
-        <h3>About Vital Stride</h3>
-        <p>Vital Stride is dedicated to helping you achieve your fitness goals with personalized programs, meal plans, and community support.</p>
+        <h3 th:text="#{footer.about}">За Vital Stride</h3>
+        <p th:text="#{footer.about.text}">Vital Stride е посветен на това да ви помогне да постигнете вашите фитнес цели с персонализирани програми, хранителни планове и подкрепа от общността.</p>
     </div>
 
     <div class="footer-column">
-        <h3>Quick Links</h3>
+        <h3 th:text="#{footer.quick_links}">Бързи връзки</h3>
         <ul>
-            <li><a href="/programs">Programs</a></li>
-            <li><a href="/meals">Meals</a></li>
-            <li><a href="/progress">Progress</a></li>
-            <li><a href="/about">About Us</a></li>
+            <li><a href="/programs" th:text="#{footer.links.programs}">Програми</a></li>
+            <li><a href="/meals" th:text="#{footer.links.meals}">Ястия</a></li>
+            <li><a href="/progress" th:text="#{footer.links.progress}">Прогрес</a></li>
+            <li><a href="/about" th:text="#{footer.links.about_us}">За нас</a></li>
         </ul>
     </div>
 
     <div class="footer-column">
-        <h3>Contact Us</h3>
-        <p>Email: <a href="mailto:support@vitalstride.com">support@vitalstride.com</a></p>
-        <p>Phone: <a href="tel:+1234567890">+1 234 567 890</a></p>
+        <h3 th:text="#{footer.contact}">Свържете се с нас</h3>
+        <p th:text="#{footer.contact.email}">Имейл: <a href="mailto:support@vitalstride.com">support@vitalstride.com</a></p>
+        <p th:text="#{footer.contact.phone}">Телефон: <a href="tel:+1234567890">+1 234 567 890</a></p>
         <div class="footer-socials">
             <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
             <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
@@ -131,7 +129,7 @@
 
 <!-- Footer Bottom -->
 <div class="footer-bottom">
-    <p>&copy; 2024 Vital Stride. All Rights Reserved.</p>
+    <p th:text="#{footer.copyright}">&copy; 2024 Vital Stride. Всички права запазени.</p>
 </div>
 
 <!-- Include FontAwesome for social media icons -->

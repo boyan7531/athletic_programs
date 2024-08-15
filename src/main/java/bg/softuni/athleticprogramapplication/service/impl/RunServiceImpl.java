@@ -3,25 +3,35 @@ package bg.softuni.athleticprogramapplication.service.impl;
 import bg.softuni.athleticprogramapplication.config.UserSession;
 import bg.softuni.athleticprogramapplication.entities.Run;
 import bg.softuni.athleticprogramapplication.entities.User;
-import bg.softuni.athleticprogramapplication.entities.dto.binding.AddRun;
+import bg.softuni.athleticprogramapplication.entities.dto.binding.AddRunBindingModel;
 import bg.softuni.athleticprogramapplication.repositories.RunRepository;
 import bg.softuni.athleticprogramapplication.repositories.UserRepository;
 import bg.softuni.athleticprogramapplication.service.RunService;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class RunServiceImpl implements RunService {
+
+    private final RestTemplate restTemplate;
+    private final String RUN_API_URL = "http://localhost:8081/runs";
+
+
     private final RunRepository runRepository;
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final UserSession userSession;
 
-    public RunServiceImpl(RunRepository runRepository, UserRepository userRepository, ModelMapper modelMapper, UserSession userSession) {
+    public RunServiceImpl(RestTemplate restTemplate, RunRepository runRepository, UserRepository userRepository, ModelMapper modelMapper, UserSession userSession) {
+        this.restTemplate = restTemplate;
         this.runRepository = runRepository;
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
@@ -30,79 +40,42 @@ public class RunServiceImpl implements RunService {
 
 
     @Override
-    public boolean addRun(AddRun addRun) {
-        int seconds  = addRun.getSeconds();
-        int minutes = addRun.getMinutes();
-        int hours = addRun.getHours();
-        int meters = addRun.getMeters();
-        int kilometers = addRun.getKilometers();
-        if(seconds > 60 && seconds %  60 != 0 ){
-            minutes += seconds / 60;
-            seconds = seconds % 60;
-        }
-        if(minutes > 60 && minutes %  60 != 0 ){
-            hours += minutes / 60;
-            minutes = minutes % 60;
+    public boolean addRun(AddRunBindingModel addRun) {
+        normalizeTime(addRun);
+        ResponseEntity<Run> response = restTemplate.postForEntity(RUN_API_URL, addRun, Run.class);
+
+        if (response == null) {
+            return false;
         }
 
-        if(meters > 1000 && meters %  1000 != 0 ){
-            kilometers += meters / 1000;
-            meters = meters % 1000;
-        }
-//        Run run = this.modelMapper.map(addRun, Run.class);
-        Run run = new Run();
-        run.setSeconds(seconds);
-        run.setHours(hours);
-        run.setMinutes(minutes);
-        run.setTitle(addRun.getTitle());
-        run.setKilometers(kilometers);
-        run.setMeters(meters);
-
-        long currentUserId = userSession.getId();
-        User currentUser = userRepository.findById(currentUserId).orElseThrow(() -> new RuntimeException("User not found"));
-        run.setUser(currentUser);
-        this.runRepository.save(run);
-        return true;
+        return response.getStatusCode() == HttpStatus.OK;
     }
+
 
     @Override
     public List<Run> findRunsByUserId(Long userId) {
-        return runRepository.findByUserId(userId);
+        String url = RUN_API_URL + "?userId=" + userId;
+        Run[] runs = restTemplate.getForObject(url, Run[].class);
+        return Arrays.asList(runs);
     }
 
     @Override
     @Transactional
     public void removeRun(Long id, Long userId) {
-        Optional<User> userById = userRepository.findById(userId);
-        if(userById.isPresent()){
-            User user = userById.get();
-            Run run = runRepository.findById(id);
-            if(user.getRuns().contains(run)){
-                user.getRuns().remove(run);
-                runRepository.delete(run);
-                userRepository.save(user);
-            }
-        }
-
+        String url = RUN_API_URL + "/" + id + "?userId=" + userId;
+        restTemplate.delete(url);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Run getRunByIdAndUserId(Long id, Long userId) {
-        Optional<User> userById = userRepository.findById(userId);
-        if(userById.isPresent()){
-            User user = userById.get();
-            Run run = runRepository.findById(id);
-            if(user.getRuns().contains(run)){
-                return run;
-            }
-        }
-        return null; //!
+        String url = RUN_API_URL + "/" + id + "?userId=" + userId;
+        return restTemplate.getForObject(url, Run.class);
     }
 
     @Override
-    public AddRun convertToAddRunDTO(Run run) {
-        return modelMapper.map(run, AddRun.class);
+    public AddRunBindingModel convertToAddRunDTO(Run run) {
+        return modelMapper.map(run, AddRunBindingModel.class);
     }
 
     @Override
@@ -124,39 +97,45 @@ public class RunServiceImpl implements RunService {
 
     @Override
     @Transactional
-    public void editRun(Long id,AddRun addRun, Long userId) {
+    public void editRun(Long id, AddRunBindingModel addRun, Long userId) {
+        String url = RUN_API_URL + "/" + id;
+        Run run = restTemplate.getForObject(url, Run.class);
 
-        Optional<User> userById = userRepository.findById(userId);
-        if(userById.isPresent()){
-            User user = userById.get();
-            Run run = runRepository.findById(id);
-            if(user.getRuns().contains(run)){
-                int kilometers = run.getKilometers();
-                int meters = run.getMeters();
-                int hours = run.getHours();
-                int minutes = run.getMinutes();
-                int seconds = run.getSeconds();
-                if(seconds > 60 && seconds %  60 != 0 ){
-                    minutes += seconds / 60;
-                    seconds = seconds % 60;
-                }
-                if(minutes > 60 && minutes %  60 != 0 ){
-                    hours += minutes / 60;
-                    minutes = minutes % 60;
-                }
+        if (run != null && run.getUser().getId().equals(userId)) {
+            // Normalize time fields before updating the run
+            normalizeTime(addRun);
 
-                if(meters > 1000 && meters %  1000 != 0 ){
-                    kilometers += meters / 1000;
-                    meters = meters % 1000;
-                }
-                run.setSeconds(seconds);
-                run.setHours(hours);
-                run.setMinutes(minutes);
-                run.setTitle(addRun.getTitle());
-                run.setKilometers(kilometers);
-                run.setMeters(meters);
-                runRepository.save(run);
-            }
+            run.setTitle(addRun.getTitle());
+            run.setHours(addRun.getHours());
+            run.setMinutes(addRun.getMinutes());
+            run.setSeconds(addRun.getSeconds());
+            run.setKilometers(addRun.getKilometers());
+            run.setMeters(addRun.getMeters());
+
+            restTemplate.put(url, run);
         }
     }
+
+    private void normalizeTime(AddRunBindingModel addRun) {
+        int seconds = Optional.ofNullable(addRun.getSeconds()).orElse(0);
+        int minutes = Optional.ofNullable(addRun.getMinutes()).orElse(0);
+        int hours = Optional.ofNullable(addRun.getHours()).orElse(0);
+
+        if (seconds >= 60) {
+            minutes += seconds / 60;
+            seconds = seconds % 60;
+        }
+
+        if (minutes >= 60) {
+            hours += minutes / 60;
+            minutes = minutes % 60;
+        }
+
+        addRun.setSeconds(seconds);
+        addRun.setMinutes(minutes);
+        addRun.setHours(hours);
+    }
+
+
+
 }
