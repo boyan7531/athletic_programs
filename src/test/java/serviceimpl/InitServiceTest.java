@@ -17,7 +17,7 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class InitServiceTest {
+public class InitServiceTest {
 
     @Mock
     private ProgramRepository programRepository;
@@ -25,8 +25,6 @@ class InitServiceTest {
     @Mock
     private MealRepository mealRepository;
 
-    @Mock
-    private RoleRepository roleRepository;
 
     @Mock
     private UserRepository userRepository;
