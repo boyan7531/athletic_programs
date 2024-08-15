@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <style>
+
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            background-image: url('/images/perfectPicture.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            /*height: 100vh; !* Ensure body takes full height *!*/
+            margin: 0;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 70px; /* Set a fixed height for the header */
+            padding: 0 2rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+        }
+
+        .content-wrapper {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 40px;
+            width: 100vw;
+            overflow-y: auto;
+            box-sizing: border-box;
+            padding-top: 110px;
+            min-height: 100vh;
+            height: 100%;
+        }
+
+        .title-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .title-container h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #1E90FF;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #165f9e;
+        }
+
+        .run-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .run-box {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: calc(16.666% - 20px); /* Reduced width to make the boxes narrower */
+            box-sizing: border-box;
+            position: relative;
+            height: 250px; /* Height remains the same for a boxy appearance */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .run-box p {
+            margin: 5px 0;
+            font-size: 1.2rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .action-buttons a {
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 5px;
+            background-color: #4caf50; /* Green for edit */
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .action-buttons a:hover {
+            background-color: #45a049;
+        }
+
+        .delete-button {
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 5px;
+            background-color: #ff6347; /* Red for delete */
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .delete-button:hover {
+            background-color: #ff4500;
+        }
+
+        @media (max-width: 768px) {
+            .run-box {
+                width: calc(33.333% - 20px); /* Adjust width for smaller screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .run-box {
+                width: 100%; /* Full width for very small screens */
+            }
+        }
+    </style>
+</head>
+<body class="run-page">
+
+<div class="header" th:replace="~{fragments/navigation}"></div>
+
+<div class="content-wrapper">
+    <div class="title-container">
+        <h1>Run Tracker</h1>
+    </div>
+
+    <div class="button-container">
+        <a href="/add-run" class="btn">Add Run</a>
+    </div>
+
+    <div class="run-list">
+        <div class="run-box" th:each="run : ${runs}">
+            <p><strong>Distance:</strong> <span th:text="${run.kilometers} + ' km ' + ${run.meters} + ' m'">5 km 200 m</span></p>
+            <p><strong>Time:</strong> <span th:text="${run.hours} + ' h ' + ${run.minutes} + ' m ' + ${run.seconds} + ' s'">0 h 30 m 45 s</span></p>
+            <div class="action-buttons">
+                <a th:href="@{'/runs/edit/' + ${run.id}}" class="edit">Edit</a>
+                <form th:action="@{'/runs/delete/' + ${run.id}}" method="post">
+<!--                    <input type="hidden" name="_method" value="delete">-->
+                    <button type="submit" class="delete-button">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div th:replace="~{fragments/footer}"></div>
+
+</body>
+</html>

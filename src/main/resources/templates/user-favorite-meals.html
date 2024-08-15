@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorite Meals</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+            flex-direction: column;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            background-image: url('/images/perfectPicture.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            margin: 0;
+        }
+
+        .meal-container {
+            border-radius: 10px;
+            padding: 40px;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 70px;
+            flex-grow: 1;
+
+        }
+
+        .meal-container main {
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .meal-container h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .meal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .meal {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: transform 0.3s ease;
+            position: relative;
+            height: 700px;
+        }
+
+
+
+        .meal:hover {
+            transform: translateY(-10px);
+        }
+
+        .favorite-meal-page{
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;width: 100%;
+            min-height: 100vh;
+            height: 100%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: auto;
+            flex-grow: 1;
+        }
+
+        .img-thumb {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .favorite-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #1E90FF;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .favorite-button:hover {
+            background-color: #165f9e;
+        }
+
+    </style>
+</head>
+<body>
+
+<div th:replace="~{fragments/navigation}"></div>
+<div class = "favorite-meal-page">
+<div class="meal-container">
+    <main>
+        <h1>Your Favorite Meals</h1>
+        <div class="meal-grid">
+            <div class="meal" th:each="meal : ${favoriteMeals}">
+                <img th:src="@{${meal.imageUrl}}" th:alt="${meal.title}" class="img-thumb">
+                <h2 th:text="${meal.title}"></h2>
+                <p>Calories: <span th:text="${meal.calories}"></span></p>
+                <p>Protein: <span th:text="${meal.protein}"></span>g</p>
+                <p>Ingredients: <span th:text="${meal.ingredients}"></span></p>
+                <p>Recipe: <span th:text="${meal.recipe}"></span></p>
+                <form th:action="@{/meals/unfavorite/{mealId}(mealId=${meal.id})}" method="post">
+                    <button type="submit" class="favorite-button remove">Remove From Favorites</button>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+</div>
+
+<div th:replace="~{fragments/footer}"></div>
+
+</body>
+</html>

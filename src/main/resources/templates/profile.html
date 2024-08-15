@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/css/newstyle.css">
+</head>
+<div th:replace="~{fragments/navigation}"></div>
+<body class="profile-page">
+<div class="profile-container">
+    <h1>Profile</h1>
+    <p><strong>Username:</strong> <span th:text="${user.username}"></span></p>
+    <p><strong>Full Name:</strong> <span th:text="${user.fullName}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+    <p><strong>Age:</strong> <span th:text="${user.age}"></span></p>
+
+    <h2>Program</h2>
+    <div th:if="${user.program != null}">
+        <p><strong>Title:</strong> <span th:text="${user.program.title}"></span></p>
+        <p><strong>Description:</strong> <span th:text="${user.program.description}"></span></p>
+        <p><strong>Goal:</strong> <span th:text="${user.program.programGoal}"></span></p>
+    </div>
+    <div th:if="${user.program == null}">
+        <p>You are not enrolled in any program.</p>
+    </div>
+</div>
+</body>
+</html>

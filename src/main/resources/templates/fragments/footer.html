@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Footer Styling */
+        .footer {
+            position: relative;
+            background-color: #111;
+            color: white;
+            width: 100%;
+            bottom: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-column ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: #1E90FF;
+        }
+
+        .footer-column p {
+            line-height: 1.6;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-socials a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-socials a:hover {
+            color: #1E90FF;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            /*margin-top: 20px;*/
+            background: black;
+            width: 100%;
+            /*position: fixed;*/
+            bottom: 0;
+        }
+
+        .footer-bottom p {
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom a {
+            color: #1E90FF;
+            text-decoration: none;
+        }
+
+        .footer-bottom a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-column">
+        <h3>About Vital Stride</h3>
+        <p>Vital Stride is dedicated to helping you achieve your fitness goals with personalized programs, meal plans, and community support.</p>
+    </div>
+
+    <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul>
+            <li><a href="/programs">Programs</a></li>
+            <li><a href="/meals">Meals</a></li>
+            <li><a href="/progress">Progress</a></li>
+            <li><a href="/about">About Us</a></li>
+        </ul>
+    </div>
+
+    <div class="footer-column">
+        <h3>Contact Us</h3>
+        <p>Email: <a href="mailto:support@vitalstride.com">support@vitalstride.com</a></p>
+        <p>Phone: <a href="tel:+1234567890">+1 234 567 890</a></p>
+        <div class="footer-socials">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </div>
+</footer>
+
+<!-- Footer Bottom -->
+<div class="footer-bottom">
+    <p>&copy; 2024 Vital Stride. All Rights Reserved.</p>
+</div>
+
+<!-- Include FontAwesome for social media icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

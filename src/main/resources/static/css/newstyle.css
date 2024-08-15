@@ -1,0 +1,1062 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+
+/* General styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Roboto Mono , sans-serif;
+}
+
+/* Common body styles */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 30px; /* To ensure content starts below the navbar */
+    background-image: url("/images/athletic.jpg"); /* Update with your background image */
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: brightness(1.1) contrast(1.1);
+}
+
+/* Background image for specific pages */
+body.login-page,
+body.register-page,
+/*body.add-run-page,*/
+body.about-us-page,
+body.programs-page,
+body.index-page {
+    background-image: url("/images/athletic.jpg");
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-top: 80px; /* Adjust if needed to match the height of the navbar */
+}
+
+body.add-run-page{
+    background-image: url("/images/addRunBackground.jpg");
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-top: 80px; /* Adjust if needed to match the height of the navbar */
+}
+
+body.meals-page {
+    background-image: url("/images/mealbackground.jpg");
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-top: 80px;
+}
+
+/* Profile page styles */
+body.profile-page {
+    background-image: url("/images/athletic.jpg"); /* Update with your background image */
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-top: 80px;
+}
+
+.profile-container {
+    position: relative;
+    width: 80%;
+    max-width: 500px;
+    padding: 40px;
+    background: rgba(255,255,255,0.1); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+    border-radius: 10px;
+    color: white; /* Ensure text color is white */
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    margin: 20px auto; /* Center the content */
+
+
+}
+
+.profile-container h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.profile-container p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
+.program-details {
+    margin-top: 30px;
+}
+
+.program-details h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.program-details p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
+.program-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 15px 30px;
+    font-size: 20px;
+    color: white;
+    background-color: #FF5733; /* Adjust the color as needed */
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.program-button:hover {
+    background-color: #C70039; /* Adjust the hover color as needed */
+    transform: scale(1.05);
+}
+
+/* Responsive styles for profile page */
+@media (max-width: 850px) {
+    .profile-container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .profile-container h1 {
+        font-size: 30px;
+    }
+
+    .program-details h2 {
+        font-size: 24px;
+    }
+
+    .program-button {
+        padding: 10px 20px;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 500px) {
+    .profile-container {
+        width: 100%;
+        padding: 20px 10px;
+    }
+
+    .profile-container h1 {
+        font-size: 26px;
+    }
+
+    .program-details h2 {
+        font-size: 22px;
+    }
+
+    .program-button {
+        padding: 10px;
+        font-size: 16px;
+    }
+}
+
+/* Navbar styling */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    background: orange; /* Make navbar transparent */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: Add a subtle shadow for visibility */
+}
+
+.main {
+    position: static;
+    font-size: 32px;
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.navbar a {
+    position: relative;
+    font-size: 18px;
+    color: white; /* Ensure text is white for better visibility */
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 40px;
+}
+
+.navbar a::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #ffffff;
+}
+
+.navbar a:hover::before {
+    width: 100%;
+}
+
+.wrapper {
+    position: relative;
+    width: 420px;
+    color: #fff;
+    border-radius: 10px;
+    padding: 30px 40px;
+    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+    overflow: hidden; /* Hide any overflow content */
+}
+
+.wrapper h1 {
+    font-size: 36px;
+    text-align: center;
+}
+
+.wrapper .input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 20px 45px 20px 20px;
+}
+
+.input-box input::placeholder {
+    color: #fff;
+}
+
+.input-box i {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+}
+
+.wrapper button {
+    width: 100%;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    height: 50px;
+    font-size: 18px;
+    color: black;
+    cursor: pointer;
+    margin-top: 20px;
+    background: white;
+    transition: transform 0.3s ease;
+}
+
+.wrapper button:hover {
+    transform: scale(0.98);
+}
+
+.wrapper .register-link {
+    font-size: 14.5px;
+    text-align: center;
+    margin: 20px 0 15px;
+}
+
+.register-link p a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link p a:hover {
+    text-decoration: underline;
+}
+
+.content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Ensure the content wrapper spans the full width */
+    padding: 20px;
+}
+
+.index-page .main-content {
+    text-align: center;
+    color: white;
+    width: 100%; /* Make the content span the full width */
+    max-width: 1200px; /* Limit the width to a reasonable value */
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    margin: 20px auto; /* Center the content */
+    flex: 1;
+}
+
+.large-text {
+    font-size: 48px; /* Adjust the size as needed */
+    color: white;
+    margin: 20px 0;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.intro-text {
+    font-size: 24px;
+    margin: 20px 0;
+    line-height: 1.5;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/*.program-button {*/
+/*    display: inline-block;*/
+/*    margin-top: 20px;*/
+/*    padding: 15px 30px;*/
+/*    font-size: 20px;*/
+/*    color: white;*/
+/*    background-color: #FF5733; !* Adjust the color as needed *!*/
+/*    border: none;*/
+/*    border-radius: 5px;*/
+/*    text-decoration: none;*/
+/*    font-weight: bold;*/
+/*    transition: background-color 0.3s ease, transform 0.3s ease;*/
+/*}*/
+
+.program-button:hover {
+    background-color: #C70039; /* Adjust the hover color as needed */
+    transform: scale(1.05);
+}
+
+/* Specific styles for About Us page */
+.about-us-container {
+    position: relative;
+    width: 80%;
+    max-width: 800px;
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+    border-radius: 10px;
+    color: white; /* Ensure text color is white */
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    margin-top: 100px; /* Add margin to ensure it starts lower */
+}
+
+.about-us-container h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.about-us-container p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+/* Card Wrapper */
+.wrapper header {
+    height: 55px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    position: relative;
+}
+
+header label {
+    height: 100%;
+    z-index: 2;
+    width: 50%; /* Adjust width to accommodate two options */
+    display: flex;
+    cursor: pointer;
+    font-size: 15px;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+}
+
+header .slider {
+    position: absolute;
+    height: 85%;
+    border-radius: inherit;
+    background: black;
+    transition: all 0.3s ease;
+}
+
+#tab-1:checked ~ header .slider {
+    left: 1%; /* Adjust positioning for two options */
+    width: 50%; /* Adjust width for two options */
+}
+
+#tab-2:checked ~ header .slider {
+    left: 49%; /* Adjust positioning for two options */
+    width: 50%; /* Adjust width for two options */
+}
+
+.wrapper input[type="radio"] {
+    display: none;
+}
+
+.card-area {
+    overflow: hidden;
+}
+
+.card-area .cards {
+    display: flex;
+    width: 200%; /* Adjust width to accommodate two options */
+}
+
+.cards .row {
+    width: 50%; /* Adjust width to accommodate two options */
+}
+
+.cards .row-1 {
+    transition: all 0.3s ease;
+}
+
+#tab-1:checked ~ .card-area .cards .row-1 {
+    margin-left: 0;
+}
+
+#tab-2:checked ~ .card-area .cards .row-1 {
+    margin-left: -50%; /* Adjust margin for two options */
+}
+
+.row .price-details {
+    margin: 20px 0;
+    text-align: center;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.price-details .price {
+    font-size: 65px;
+    font-weight: 600;
+    position: relative;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.price-details .price::before,
+.price-details .price::after {
+    position: absolute;
+    font-weight: 400;
+    font-family: "Poppins", sans-serif;
+}
+
+.price-details .price::before {
+    content: "$";
+    left: -13px;
+    top: 17px;
+    font-size: 20px;
+}
+
+.price-details .price::after {
+    content: "/mon";
+    right: -33px;
+    bottom: 17px;
+    font-size: 13px;
+}
+
+.price-details p {
+    font-size: 18px;
+    margin-top: 5px;
+}
+
+.row .features li {
+    display: flex;
+    font-size: 15px;
+    list-style: none;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.features li i {
+    background: white;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.features li span {
+    margin-left: 10px;
+}
+
+main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: transparent; /* Change to transparent */
+    border-radius: 8px;
+    box-shadow: none; /* Remove shadow */
+}
+
+h1,
+h3 {
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 30px;
+}
+
+.meals-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.blurry-box {
+    position: relative;
+    width: 80%;
+    max-width: 1200px; /* Adjust width as needed */
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    margin: 40px auto; /* Center the box and add vertical margin */
+}
+
+.blurry-box h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.blurry-box p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+/* Specific styles for Meals page */
+.meal {
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+    border-radius: 10px;
+    color: white;
+    padding: 45px; /* Increased padding */
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    flex: 1 1 calc(33.333% - 40px);
+    box-sizing: border-box;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    width: 350px;
+    height: 600px;
+}
+/* Dropdown container - needed to position the dropdown content */
+/*.dropdown {*/
+/*    float: left;*/
+/*    overflow: hidden;*/
+/*}*/
+
+/*!* Style the dropdown button to fit inside the topnav *!*/
+/*.dropdown .dropbtn {*/
+/*    font-size: 17px;*/
+/*    border: none;*/
+/*    outline: none;*/
+/*    color: white;*/
+/*    padding: 14px 16px;*/
+/*    background-color: inherit;*/
+/*    font-family: inherit;*/
+/*    margin: 0;*/
+/*}*/
+
+/*!* Style the dropdown content (hidden by default) *!*/
+/*.dropdown-content {*/
+/*    display: none;*/
+/*    position: absolute;*/
+/*    background-color: #f9f9f9;*/
+/*    min-width: 160px;*/
+/*    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);*/
+/*    z-index: 1;*/
+/*}*/
+
+/*!* Style the links inside the dropdown *!*/
+/*.dropdown-content a {*/
+/*    float: none;*/
+/*    color: black;*/
+/*    padding: 12px 16px;*/
+/*    text-decoration: none;*/
+/*    display: block;*/
+/*    text-align: left;*/
+/*}*/
+
+/*!* Add a dark background on topnav links and the dropdown button on hover *!*/
+/*.topnav a:hover, .dropdown:hover .dropbtn {*/
+/*    background-color: #555;*/
+/*    color: white;*/
+/*}*/
+
+/*!* Add a grey background to dropdown links on hover *!*/
+/*.dropdown-content a:hover {*/
+/*    background-color: #ddd;*/
+/*    color: black;*/
+/*}*/
+
+/*!* Show the dropdown menu when the user moves the mouse over the dropdown button *!*/
+/*.dropdown:hover .dropdown-content {*/
+/*    display: block;*/
+/*}*/
+
+/*!* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) *!*/
+/*@media screen and (max-width: 600px) {*/
+/*    .topnav a:not(:first-child), .dropdown .dropbtn {*/
+/*        display: none;*/
+/*    }*/
+/*    .topnav a.icon {*/
+/*        float: right;*/
+/*        display: block;*/
+/*    }*/
+/*}*/
+
+/*!* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) *!*/
+/*@media screen and (max-width: 600px) {*/
+/*    .topnav.responsive {position: relative;}*/
+/*    .topnav.responsive a.icon {*/
+/*        position: absolute;*/
+/*        right: 0;*/
+/*        top: 0;*/
+/*    }*/
+/*    .topnav.responsive a {*/
+/*        float: none;*/
+/*        display: block;*/
+/*        text-align: left;*/
+/*    }*/
+/*    .topnav.responsive .dropdown {float: none;}*/
+/*    .topnav.responsive .dropdown-content {position: relative;}*/
+/*    .topnav.responsive .dropdown .dropbtn {*/
+/*        display: block;*/
+/*        width: 100%;*/
+/*        text-align: left;*/
+/*    }*/
+
+/*.meal:hover {*/
+/*    transform: translateY(-5px);*/
+/*    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);*/
+/*}*/
+
+.meal h2 {
+    font-size: 1.5em;
+    margin-top: 0;
+}
+
+.meal p {
+    margin: 5px 0;
+    color: #ddd;
+}
+
+.meal p:first-of-type {
+    margin-top: 10px;
+}
+
+.favorite-button {
+    background: white;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 1em;
+    cursor: pointer;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    transition: transform 0.3s ease;
+}
+
+.favorite-button:hover {
+    transform: scale(1.05);
+    background-color: #ff6666;
+    color: white;
+}
+
+/* Navbar styles */
+nav {
+    background-color: transparent; /* Make navbar background transparent */
+    font-size: 1.4em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    box-shadow: 2px 2px 8px #5a6268;
+    overflow: hidden;
+    padding: 0.5em 1em;
+}
+
+nav .home {
+    flex: 1;
+}
+
+nav .links {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav .links li {
+    margin-right: 1em;
+}
+
+nav .links a {
+    text-decoration: none;
+    color: #fff; /* Ensure text is white for better visibility */
+}
+
+nav .links a:hover {
+    text-shadow: none;
+    text-decoration: none;
+    color: #d1ddf1;
+}
+
+textarea {
+    resize: none;
+}
+
+/* Welcome and login styles */
+.welcome {
+    position: relative;
+    border-radius: 12px;
+    margin-top: 8em;
+    color: #b5d8f1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    padding: 1em;
+    background-color: rgba(84, 91, 98, 0.1);
+    max-width: 1140px;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    box-shadow: 0 4px 16px black;
+    z-index: 1;
+}
+
+.welcome:hover {
+    box-shadow: 0 1px 5px black;
+    backdrop-filter: blur(35px);
+}
+
+.login {
+    transition: 0.1s ease-in;
+    margin-top: 6em;
+    background-color: rgba(84, 91, 98, 0.4);
+    width: 400px;
+}
+
+.wrapper btn {
+    width: 100%;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    height: 50px;
+    font-size: 18px;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 20px;
+    background: white;
+    transition: transform 0.3s ease;
+}
+
+.login:hover span {
+    background-color: #5a6268;
+}
+
+.login:hover {
+    backdrop-filter: blur(2px);
+}
+
+.add-offer-form,
+.login,
+.add-run-form {
+    width: 400px;
+}
+
+button {
+    background: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+}
+
+button:hover {
+    background: white;
+}
+
+.primary-text {
+    color: rgb(218, 218, 218);
+}
+
+footer {
+    position: static;
+    bottom: 0;
+    width: 100%;
+}
+
+.img-thumb {
+    padding: .25rem;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: .25rem;
+    max-width: 100%;
+}
+
+.bg-blur {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-weight: bold;
+    border: 3px solid #f1f1f1;
+    z-index: 2;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+}
+
+.mySticky {
+    position: sticky;
+    left: 0;
+}
+
+.image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    text-align: center;
+    padding-top: 50px;
+    box-sizing: border-box;
+}
+
+.preview {
+    width: 35%;
+    display: block;
+    height: auto;
+    margin: 0.5em auto;
+    border-radius: 12px;
+    box-shadow: 2px 3px 5px #f5f1f1;
+    z-index: 10;
+}
+
+#names,
+#authors {
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    padding-left: 5px;
+}
+
+.index-page {
+    width: 100%;
+}
+
+.main-content {
+    width: 100%;
+    text-align: center;
+}
+
+.large-text {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.intro-text {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.program-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.program-button:hover {
+    background-color: #0056b3;
+}
+
+.text-stroke {
+    text-shadow: 0.07em 0 white, 0 0.07em white, -0.07em 0 white, 0 -0.07em white;
+}
+
+a {
+    color: #000;
+    text-shadow: 1px 1px 2px white;
+}
+
+a:hover {
+    color: rgb(181, 181, 181);
+    text-shadow: none;
+    text-decoration: none;
+}
+
+/* Responsive styles */
+@media (max-width: 850px) {
+    nav .home {
+        display: none;
+    }
+
+    .wrapper {
+        width: 320px;
+        padding: 20px 30px;
+    }
+
+    .wrapper h1 {
+        font-size: 30px;
+    }
+
+    .wrapper .input-box {
+        height: 45px;
+        margin: 25px 0;
+    }
+
+    .wrapper .btn {
+        height: 40px;
+    }
+
+    .register-link p a {
+        font-weight: 500;
+    }
+
+    .content-wrapper {
+        padding: 10px 20px;
+    }
+
+    main {
+        padding: 10px;
+        max-width: 100%;
+    }
+
+    .meals-container {
+        flex-direction: column;
+    }
+
+    .meal {
+        flex: 1 1 100%;
+    }
+}
+
+@media (max-width: 500px) {
+    .wrapper {
+        width: 100%;
+        padding: 20px 10px;
+    }
+
+    .wrapper h1 {
+        font-size: 26px;
+    }
+
+    .wrapper .input-box {
+        height: 40px;
+        margin: 20px 0;
+    }
+
+    .wrapper .btn {
+        height: 35px;
+        font-size: 14px;
+    }
+
+    .register-link p a {
+        font-weight: 400;
+    }
+
+    .content-wrapper {
+        padding: 10px;
+    }
+
+    main {
+        padding: 5px;
+        max-width: 100%;
+    }
+
+    .meals-container {
+        flex-direction: column;
+    }
+
+    .meal {
+        flex: 1 1 100%;
+    }
+}
+
+/* Specific styles for Runs page */
+.runs-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.run {
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+    border-radius: 10px;
+    color: white;
+    padding: 20px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    flex: 1 1 calc(33.333% - 40px);
+    box-sizing: border-box;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.run:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.run h3 {
+    font-size: 1.5em;
+    margin-top: 0;
+    color: #fff;
+}
+
+.run p {
+    margin: 5px 0;
+    color: #ddd;
+}
+
+.run p:first-of-type {
+    margin-top: 10px;
+}
+
+#names {
+    flex: 0 0 45%;
+}
+
+#authors {
+    flex: 0 0 30%;
+}

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        body {
+            flex: 1;
+            color: white;
+            background-image: url('/images/perfectPicture.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 70px; /* Set a fixed height for the header */
+            padding: 0 2rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+        }
+
+        .aboutus-wrapper {
+            flex: 1;
+            margin-top: 70px; /* Offset by header height */
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 40px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /*overflow: auto; !* Allow scrolling if content overflows *!*/
+        }
+
+        main {
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section-wrapper {
+            margin-bottom: 40px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .section-content h1, .section-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid #1E90FF;
+            padding-bottom: 10px;
+        }
+
+        .section-content p, .section-content ul {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .section-content ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .section-content ul li {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .section-content ul li strong {
+            color: #1E90FF;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .learn-more-button {
+            display: inline-block;
+            width: auto;
+            max-width: 250px;
+            text-align: center;
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            height: 50px;
+            font-size: 18px;
+            color: white;
+            cursor: pointer;
+            background-color: #1E90FF;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .learn-more-button:hover {
+            background-color: #165f9e;
+        }
+
+        .program-button {
+            width: auto;
+            max-width: 250px;
+            text-align: center;
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            height: 50px;
+            font-size: 18px;
+            color: white;
+            cursor: pointer;
+            background-color: #1c86ee;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin: auto;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            width: 100%; /* Ensure it takes full width */
+            margin-top: 20px; /* Adjust as needed */
+        }
+
+        .program-button:hover {
+            background-color: #165f9e;
+        }
+    </style>
+</head>
+<body class="about-us-page">
+
+<div class="header" th:replace="~{fragments/navigation}"></div>
+
+<div class="aboutus-wrapper">
+    <main>
+        <div class="section-wrapper" id="about-intro">
+            <div class="section-content">
+                <h1 th:text="#{about_us.header}">About Us</h1>
+                <div class="about-wrapper">
+                    <p th:text="#{about_us.intro}">Welcome to our fitness community! We are dedicated to helping you achieve your fitness goals through expert guidance, personalized plans, and a supportive community.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-wrapper" id="our-mission">
+            <div class="section-content">
+                <h2 th:text="#{mission.header}">Our Mission</h2>
+                <ul>
+                    <li><strong th:text="#{mission.inspiration}">Inspiration: Empower you to reach your full potential</strong></li>
+                    <li><strong th:text="#{mission.education}">Education: Provide you with the knowledge to make informed decisions</strong></li>
+                    <li><strong th:text="#{mission.support}">Support: Be with you every step of the way</strong></li>
+                    <li><strong th:text="#{mission.community}">Community: Create a space where everyone feels welcome</strong></li>
+                    <li><strong th:text="#{mission.wellbeing}">Well-being: Focus on holistic health and wellness</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section-wrapper" id="our-values">
+            <div class="section-content">
+                <h2 th:text="#{values.header}">Our Values</h2>
+                <div class="about-wrapper">
+                    <p th:text="#{values.belief}">We believe in:</p>
+                    <ul>
+                        <li th:text="#{values.integrity}">Integrity in all our actions</li>
+                        <li th:text="#{values.commitment}">Commitment to our community</li>
+                        <li th:text="#{values.improvement}">Continuous improvement and innovation</li>
+                        <li th:text="#{values.transparency}">Transparency and honesty</li>
+                        <li th:text="#{values.respect}">Respect for every individual</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div th:replace="~{fragments/footer}"></div>
+
+</body>
+</html>

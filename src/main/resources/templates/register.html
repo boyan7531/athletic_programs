@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        body {
+            margin: 0;
+            padding-top: 70px; /* Adjusted to match the header height */
+            background-repeat: repeat;
+            background-size: cover;
+            background-image: url('/images/perfectPicture.jpg');
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align content below the header */
+            min-height: 100vh;
+            width: 100%;
+            color: white;
+        }
+
+        .registration-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: rgba(0, 0, 0, 0.7);
+            box-sizing: border-box;
+        }
+
+        .registration-box {
+            max-width: 450px;
+            max-height: 800px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            position: relative;
+        }
+
+        .registration-box h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .registration-box form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-box {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 10px;
+            padding-left: 40px; /* Add left padding for the icon */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .input-box i {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            color: #888;
+            font-size: 20px;
+        }
+
+        .registration-box button {
+            font-size: 20px;
+            padding: 10px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #1E90FF;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .registration-box button:hover {
+            background-color: #165f9e;
+        }
+
+        .register-link p {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .register-link p a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .register-link p a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: white;
+            font-size: 12px;
+            padding-left: 10px;
+            height: 12px;
+            line-height: 14px;
+            position: absolute;
+            top: 100%; /* Positioning it right below the input field */
+            left: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments/navigation}"></div>
+    <div class="registration-container">
+        <div class="registration-box">
+            <h1>Register</h1>
+            <form id="registerForm" th:action="@{/users/register}" th:object="${userRegisterBindingModel}" method="post">
+                <div class="input-box">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" th:field="*{username}" placeholder="Username">
+                    <div id="usernameError" th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error-message"></div>
+                </div>
+
+                <div class="input-box">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="fullName" th:field="*{fullName}" placeholder="Full Name">
+                    <div id="fullNameError" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" class="error-message"></div>
+                </div>
+
+                <div class="input-box">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" th:field="*{email}" placeholder="Email">
+                    <div id="emailError" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></div>
+                </div>
+
+                <div class="input-box">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" th:field="*{password}" placeholder="Password">
+                    <div id="passwordError" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></div>
+                </div>
+
+                <div class="input-box">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="confirmPassword" th:field="*{confirmPassword}" placeholder="Confirm Password">
+                    <div id="confirmPasswordError" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="error-message"></div>
+                </div>
+
+                <button class="btn" type="submit">Register</button>
+                <div class="register-link">
+                    <p>Already have an account? <a href="/users/login">Login</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<div th:replace="~{fragments/footer}"></div>
+</body>
+</html>

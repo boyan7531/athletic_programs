@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Athletic Programs</title>
+    <!--    <link rel="stylesheet" href="/css/index.css" type="text/css"/>-->
+</head>
+<style>
+    .header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 0 2rem;
+        background-color: rgba(0, 0, 0, 0.7); /* Added background color for better visibility */
+        z-index: 1000; /* Ensure header is on top */
+    }
+
+    .navbar {
+        width: 100%;
+        height: 70px;
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .main {
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding: 20px;
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
+        background-color: transparent;
+        text-decoration: none;
+        z-index: 1000;
+    }
+
+    .main:hover {
+        background-color: transparent;
+    }
+
+    .navbar a {
+        position: relative;
+        font-size: 20px;
+        color: white;
+        font-weight: 700;
+        text-decoration: none;
+        margin-left: 40px;
+    }
+
+    .navbar a::before {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #ffffff;
+        transition: width 0.3s ease;
+    }
+
+    .navbar a:hover::before {
+        width: 100%;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+        background-color: #3e8e41;
+    }
+
+    /* Language switcher styling */
+    .language-switcher {
+        margin-left: 20px;
+        position: relative;
+        display: inline-block;
+    }
+
+    .language-switcher .dropbtn {
+        color: white;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .language-switcher .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 100px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    .language-switcher:hover .dropdown-content {
+        display: block;
+    }
+
+    .language-switcher .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .language-switcher .dropdown-content a:hover {
+        background-color: #f1f1f1;
+    }
+
+</style>
+
+<body>
+
+<header class="header">
+    <a href="/" class="main" th:text="#{navbar.home}">Vital Stride</a>
+
+    <nav class="navbar">
+        <a th:unless="${@userSession.isLoggedIn()}" th:text="#{navbar.login}" href="/users/login">Login</a>
+        <a th:unless="${@userSession.isLoggedIn()}" th:text="#{navbar.register}" href="/users/register">Register</a>
+        <a href="/programs" th:text="#{navbar.programs}">Programs</a>
+        <a href="/meals" th:text="#{navbar.meals}">Meals</a>
+        <a href="/about" th:text="#{navbar.about}">About Us</a>
+        <div class="dropdown" th:if="${@userSession.isLoggedIn()}">
+            <a href="#" class="dropbtn" th:text="#{navbar.profile}">Profile</a>
+            <div class="dropdown-content">
+                <a href="/my-program" th:text="#{navbar.my_program}">My Program</a>
+                <a href="/users/run" th:text="#{navbar.my_runs}">My Runs</a>
+                <a href="/users/favorites" th:text="#{navbar.favorites}">Favorite Meals</a>
+                <a href="/progress" th:text="#{navbar.progress}">Progress</a>
+                <a href="/users/logout" th:text="#{navbar.logout}">Logout</a>
+            </div>
+        </div>
+        <!-- Language switcher -->
+        <div class="language-switcher">
+            <a href="javascript:void(0);" class="dropbtn" th:text="${#locale.language == 'bg'} ? 'Български' : 'English'"></a>
+            <div class="dropdown-content">
+                <a th:if="${#locale.language != 'en'}" th:href="@{${#request.getRequestURI()}(lang='en')}" th:text="#{navbar.english}">English</a>
+                <a th:if="${#locale.language != 'bg'}" th:href="@{${#request.getRequestURI()}(lang='bg')}" th:text="#{navbar.bulgarian}">Български</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Login</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+
+        body {
+            margin: 0;
+            padding-top: 70px; /* Adjusted to match the header height */
+            background-repeat: repeat;
+            background-size: cover;
+            background-image: url('/images/perfectPicture.jpg');
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align content below the header */
+            min-height: 100vh;
+            width: 100%;
+            color: white;
+        }
+
+        .login-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: rgba(0, 0, 0, 0.7);
+            box-sizing: border-box;
+
+
+        }
+
+        .login-box {
+            max-width: 450px;
+            max-height: 800px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            position: relative;
+        }
+
+        .login-box h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .login-box form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-box {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 10px;
+            padding-left: 40px; /* Add left padding for the icon */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .input-box i {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            color: #888;
+            font-size: 20px;
+        }
+
+        .login-box button {
+            font-size: 20px;
+            padding: 10px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #1E90FF;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-box button:hover {
+            background-color: #165f9e;
+        }
+
+        .register-link p {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .register-link p a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .register-link p a:hover {
+            text-decoration: underline;
+        }
+
+        .text-danger {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div th:replace="~{fragments/navigation}"></div>
+<div class = "login-container">
+<div class="login-box">
+    <h1>Login</h1>
+    <form th:action="@{/users/login}" th:method="post">
+        <div th:if="${loginError}" class="text-danger center-error">Incorrect username or password!</div>
+        <div class="input-box">
+            <label for="inputUsername"></label>
+            <input
+                    type="text"
+                    placeholder="Username"
+                    name="username"
+                    id="inputUsername"
+                    class="form-control"
+            >
+            <i class='bx bxs-user'></i>
+        </div>
+        <div class="input-box">
+            <label for="inputPassword"></label>
+            <input
+                    placeholder="Password"
+                    type="password"
+                    name="password"
+                    id="inputPassword"
+                    class="form-control"
+            >
+            <i class='bx bxs-lock-alt'></i>
+        </div>
+        <button type="submit" class="btn">Login</button>
+        <div class="register-link">
+            <p>Don't have an account? <a href="/users/register">Register</a></p>
+        </div>
+    </form>
+</div>
+</div>
+
+<div th:replace="~{fragments/footer}"></div>
+</body>
+
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Lose Weight Program</title>
+<!--    <link rel="stylesheet" href="/css/styles.css">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            background-image: url('/images/perfectPicture.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 70px;
+            padding: 0 2rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+        }
+
+        .onlyprogram-wrapper {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 40px;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 70px;
+        }
+
+        main {
+            width: 100%;
+        }
+
+        .section-wrapper {
+            margin-bottom: 40px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .section-content h1, .section-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid #1E90FF;
+            padding-bottom: 10px;
+        }
+
+        .section-content p, .section-content ul {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .section-content ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .section-content ul li {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .section-content ul li strong {
+            color: #1E90FF;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .learn-more-button, .program-button, .remove-button {
+            display: inline-block;
+            width: auto;
+            max-width: 250px;
+            text-align: center;
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            height: 50px;
+            font-size: 18px;
+            color: white;
+            cursor: pointer;
+            background-color: #1E90FF;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .learn-more-button:hover, .program-button:hover {
+            background-color: #165f9e;
+        }
+
+        .program-button {
+            display: block;
+            margin: auto;
+            max-width: 500px;
+        }
+        .remove-button {
+            background-color: #FF6347;
+            margin-top: 20px;
+        }
+        .remove-button:hover {
+            background-color: #d9534f;
+        }
+
+
+        .tip {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 1rem;
+            color: #FFD700;
+        }
+    </style>
+</head>
+<body class="program-page">
+<div class="header" th:replace="~{fragments/navigation}"></div>
+<div class="onlyprogram-wrapper">
+    <main>
+        <div class="section-wrapper" id="program-intro">
+            <div class="section-content">
+                <h1 th:text="#{my_lose_weight.header}">My Lose Weight Program</h1>
+                <div class="program-wrapper">
+                    <p th:text="#{my_lose_weight.intro}">Welcome to your personalized Lose Weight Program! Follow the schedule and guidelines below to achieve your fitness goals.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-wrapper" id="program-schedule">
+            <div class="section-content">
+                <h2 th:text="#{my_lose_weight.schedule.header}">Weekly Schedule</h2>
+                <div class="program-wrapper">
+                    <h3 th:text="#{my_lose_weight.schedule.week1_8}">Week 1-8</h3>
+                    <ul>
+                        <li th:text="#{my_lose_weight.schedule.monday}">Monday: Cardio workout - 30 minutes of running or brisk walking</li>
+                        <li th:text="#{my_lose_weight.schedule.tuesday}">Tuesday: Strength training - Upper body exercises</li>
+                        <li th:text="#{my_lose_weight.schedule.wednesday}">Wednesday: Rest day or light yoga</li>
+                        <li th:text="#{my_lose_weight.schedule.thursday}">Thursday: Cardio workout - 30 minutes of cycling or swimming</li>
+                        <li th:text="#{my_lose_weight.schedule.friday}">Friday: Strength training - Lower body exercises</li>
+                        <li th:text="#{my_lose_weight.schedule.saturday}">Saturday: Flexibility exercises - Stretching or pilates</li>
+                        <li th:text="#{my_lose_weight.schedule.sunday}">Sunday: Rest day</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-wrapper" id="exercise-details">
+            <div class="section-content">
+                <h2 th:text="#{my_lose_weight.exercises.header}">Exercise Details</h2>
+                <div class="program-wrapper">
+                    <h3 th:text="#{my_lose_weight.exercises.cardio}">Cardio Workouts</h3>
+                    <p th:text="#{my_lose_weight.exercises.cardio.desc}">Cardio workouts are essential for burning calories and improving cardiovascular health. Aim for at least 30 minutes of moderate-intensity cardio activities such as running, brisk walking, cycling, or swimming.</p>
+
+                    <h3 th:text="#{my_lose_weight.exercises.strength}">Strength Training</h3>
+                    <p th:text="#{my_lose_weight.exercises.strength.desc}">Strength training helps build muscle and boost metabolism. Focus on different muscle groups each day:</p>
+                    <ul>
+                        <li th:text="#{my_lose_weight.exercises.strength.upper}">Upper Body: Push-ups, dumbbell presses, bicep curls, tricep dips</li>
+                        <li th:text="#{my_lose_weight.exercises.strength.lower}">Lower Body: Squats, lunges, leg presses, calf raises</li>
+                    </ul>
+
+                    <h3 th:text="#{my_lose_weight.exercises.flexibility}">Flexibility Exercises</h3>
+                    <p th:text="#{my_lose_weight.exercises.flexibility.desc}">Flexibility exercises improve range of motion and reduce injury risk. Include activities such as stretching, yoga, or pilates in your routine.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-wrapper" id="nutrition-plan">
+            <div class="section-content">
+                <h2 th:text="#{my_lose_weight.nutrition.header}">Nutrition Plan</h2>
+                <div class="program-wrapper">
+                    <p th:text="#{my_lose_weight.nutrition.desc}">Follow a balanced diet that includes a variety of foods from all food groups. Here are some guidelines:</p>
+                    <ul>
+                        <li th:text="#{my_lose_weight.nutrition.fruits}">Eat plenty of fruits and vegetables</li>
+                        <li th:text="#{my_lose_weight.nutrition.proteins}">Include lean proteins such as chicken, fish, and legumes</li>
+                        <li th:text="#{my_lose_weight.nutrition.grains}">Choose whole grains over refined grains</li>
+                        <li th:text="#{my_lose_weight.nutrition.sugar}">Limit sugary drinks and snacks</li>
+                        <li th:text="#{my_lose_weight.nutrition.hydration}">Stay hydrated by drinking plenty of water</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-wrapper" id="progress-tracking">
+            <div class="section-content">
+                <h2 th:text="#{my_lose_weight.progress.header}">Track Your Progress</h2>
+                <div class="program-wrapper">
+                    <p th:text="#{my_lose_weight.progress.desc}">Use the following tools to track your progress:</p>
+                    <ul>
+                        <li th:text="#{my_lose_weight.progress.logs}">Weekly weigh-ins and measurements</li>
+                        <li th:text="#{my_lose_weight.progress.diary}">Keep a workout and nutrition diary</li>
+                        <li th:text="#{my_lose_weight.progress.goals}">Set short-term and long-term goals</li>
+                        <li th:text="#{my_lose_weight.progress.community}">Join our online community for support and motivation</li>
+                    </ul>
+                    <div class="tip">
+                        <i class="fas fa-lightbulb"></i> <span th:text="#{my_lose_weight.tip}">Tip: Consistency is key! Keep pushing even if progress seems slow.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <form th:action="@{/remove-program}" method="post">
+                <button type="submit" class="remove-button" th:text="#{my_lose_weight.remove_button}">Remove program</button>
+            </form>
+        </div>
+    </main>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $(".progress").animate({width: "50%"}, 2000);
+    });
+</script>
+
+<div th:replace="~{fragments/footer}"></div>
+
+
+</body>
+</html>

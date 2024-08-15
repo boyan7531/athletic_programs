@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        body {
+            margin: 0;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-image: url('/images/perfectPicture.jpg');
+            background-attachment: fixed;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .program-container{
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 40px;
+            padding-top: 40px;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 70px;
+            flex-grow: 1;
+            height: 100vh;
+        }
+
+        .wrapper {
+            margin-top: 50px;
+            width: 400px;
+            border-radius: 16px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.5);
+
+        }
+        .wrapper header {
+            height: 55px;
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+            position: relative;
+        }
+
+        header label {
+            height: 100%;
+            z-index: 2;
+            width: 50%;
+            display: flex;
+            cursor: pointer;
+            font-size: 18px;
+            position: relative;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s ease;
+        }
+
+        .title-container {
+            /*background-color: rgba(0, 0, 0, 0.7);*/
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            width: 110vh;
+            margin-top: 20px;
+        }
+
+
+        .title-container h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+
+
+        #tab-1:checked ~ header .tab-1,
+        #tab-2:checked ~ header .tab-2 {
+            color: black;
+        }
+
+        header .slider {
+            position: absolute;
+            height: 85%;
+            border-radius: inherit;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        #tab-1:checked ~ header .slider {
+            left: 1%;
+            width: 50%;
+        }
+
+        #tab-2:checked ~ header .slider {
+            left: 49%;
+            width: 50%;
+        }
+
+        .wrapper input[type="radio"] {
+            display: none;
+        }
+
+        .card-area {
+            overflow: hidden;
+        }
+
+        .card-area .cards {
+            display: flex;
+            width: 200%;
+        }
+
+        .cards .row {
+            width: 50%;
+            position: relative;
+            height: 450px;
+            padding-bottom: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .cards .row-1 {
+            transition: all 0.3s ease;
+        }
+
+        #tab-1:checked ~ .card-area .cards .row-1 {
+            margin-left: 0%;
+        }
+
+        #tab-2:checked ~ .card-area .cards .row-1 {
+            margin-left: -50%;
+        }
+
+        .row .price-details {
+            margin: 20px 0;
+            text-align: center;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #e6e6e6;
+        }
+
+        .price-details .price {
+            font-size: 65px;
+            font-weight: 600;
+            position: relative;
+            font-family: 'Noto Sans', sans-serif;
+        }
+
+        .price-details .price::before,
+        .price-details .price::after {
+            position: absolute;
+            font-weight: 400;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .price-details .price::before {
+            content: "$";
+            left: -13px;
+            top: 17px;
+            font-size: 20px;
+        }
+
+        .price-details .price::after {
+            content: "/mon";
+            right: -33px;
+            bottom: 17px;
+            font-size: 13px;
+        }
+
+        .price-details p {
+            font-size: 18px;
+            margin-top: 5px;
+        }
+
+        .row .features {
+            flex-grow: 1;
+        }
+
+        .row .features li {
+            display: flex;
+            font-size: 15px;
+            list-style: none;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .features li i {
+            background: white;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .features li span {
+            margin-left: 10px;
+        }
+
+        .row .learn-more-button {
+            width: 100%;
+            margin-top: auto;
+            display: inline-block;
+            text-align: center;
+            padding: 10px 0;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            height: 50px;
+            font-size: 18px;
+            color: white;
+            cursor: pointer;
+            background-color: #1E90FF;
+            text-decoration: none;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .row .learn-more-button:hover {
+            transform: scale(0.98);
+            background-color: #165f9e;
+        }
+
+        .button-common {
+            background-color: #1E90FF;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .button-common:hover {
+            background-color: #165f9e;
+            transform: scale(0.98);
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+<div class="header" th:replace="~{fragments/navigation}"></div>
+
+<div class="program-container">
+    <div class="title-container">
+        <h1 th:text="#{programs.header}">Programs</h1>
+    </div>
+    <div class="wrapper">
+        <input type="radio" name="slider" id="tab-1" checked>
+        <input type="radio" name="slider" id="tab-2">
+        <header>
+            <label for="tab-1" class="tab-1" th:text="#{programs.lose_weight}">Lose Weight</label>
+            <label for="tab-2" class="tab-2" th:text="#{programs.run_more}">Run More</label>
+            <div class="slider"></div>
+        </header>
+        <div class="card-area">
+            <div class="cards">
+                <div class="row row-1">
+                    <div class="price-details">
+                        <span class="price">0</span>
+                        <p th:text="#{programs.for_weight_loss}">For Weight Loss</p>
+                    </div>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i><span th:text="#{programs.lose_weight.feature1}">Lose Weight</span></li>
+                        <li><i class="fas fa-check"></i><span th:text="#{programs.lose_weight.feature2}">Enjoy Our Private Meals</span></li>
+                        <li><i class="fas fa-check"></i><span th:text="#{programs.lose_weight.feature3}">Improve Athletic Performance</span></li>
+                        <li><i class="fas fa-check"></i><span th:text="#{programs.lose_weight.feature4}">Access to Personalized Workout Plans</span></li>
+                    </ul>
+                    <a class="learn-more-button button-common" th:href="@{/programs/lose-weight}" th:text="#{button.learn_more}">Learn More</a>
+                </div>
+                <div class="row">
+                    <div class="price-details">
+                        <span class="price">0</span>
+                        <p th:text="#{programs.for_longer_runs}">For Longer Runs</p>
+                    </div>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i><span th:text="#{programs.run_more.feature1}">Increase Stamina and Endurance</span></li>
+                        <li><i class="fas fa-check"></i><span th:text="#{programs.run_more.feature2}">Personalized Running Plans</span></li>
+                        <li><i class="fas fa-check"></i><span th:text="#{programs.run_more.feature3}">Track Your Progress with Advanced Metrics</span></li>
+                        <li><i class="fas fa-check"></i><span th:text="#{programs.run_more.feature4}">Join a Supportive Running Community</span></li>
+                    </ul>
+                    <a class="learn-more-button button-common" th:href="@{/programs/run-more}" th:text="#{button.learn_more}">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/footer}"></div>
+
+</body>
+</html>

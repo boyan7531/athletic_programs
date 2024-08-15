@@ -1,0 +1,40 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/finalproject?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: root
+    password: '12345'
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor: TRACE
+        SQL: DEBUG
+      nodeValue: WARN
+    blog: WARN
